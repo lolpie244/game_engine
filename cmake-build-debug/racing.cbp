@@ -80,10 +80,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/lolpie/projects/racing/helping_function/perfect_collision.h">
+		<Unit filename="/home/lolpie/projects/racing/helping/perfect_collision.h">
 			<Option target="racing"/>
 		</Unit>
-		<Unit filename="/home/lolpie/projects/racing/helping_function/scale.h">
+		<Unit filename="/home/lolpie/projects/racing/helping/scale.h">
+			<Option target="racing"/>
+		</Unit>
+		<Unit filename="/home/lolpie/projects/racing/helping/type_class.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/info_classes/info.h">
@@ -99,6 +102,9 @@
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/object_classes/gui_object.h">
+			<Option target="racing"/>
+		</Unit>
+		<Unit filename="/home/lolpie/projects/racing/object_classes/object.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/object_classes/parent_object.h">

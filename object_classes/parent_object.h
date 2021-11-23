@@ -6,14 +6,18 @@ namespace objects
 {
     using namespace sf;
     using namespace std;
+    template<typename Type = int>
     class parent_object
     {
     protected:
         Sprite sprite;
         shared_ptr<Texture> texture;
+        helping_classes::Type<Type> type;
     public:
-        virtual void draw(RenderTarget& target, RenderStates states) const = 0;
-
+        Type* cast()
+        {
+            return type.cast(this);
+        }
         shared_ptr<Texture> get_texture()
         {
             return this->texture;

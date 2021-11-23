@@ -7,10 +7,10 @@
 namespace object_parameters
 {
     using namespace sf;
-    class common_draw : virtual public objects::parent_object, public Drawable
+    class common_draw
     {
     public:
-        void draw(RenderTarget& target, RenderStates states) const
+        void draw(RenderTarget& target, RenderStates states, Sprite sprite, Texture& texture) const
         {
             target.draw(sprite, states);
         }

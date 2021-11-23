@@ -6,9 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/lolpie/projects/racing/helping_function/perfect_collision.h
+/home/lolpie/projects/racing/helping/perfect_collision.h
 
-/home/lolpie/projects/racing/helping_function/scale.h
+/home/lolpie/projects/racing/helping/scale.h
+
+/home/lolpie/projects/racing/helping/type_class.h
 
 /home/lolpie/projects/racing/info_classes/info.h
 
@@ -21,6 +23,10 @@ settings/project_files.h
 /home/lolpie/projects/racing/settings/project_files.h
 
 /home/lolpie/projects/racing/object_classes/game_object.h
+
+/home/lolpie/projects/racing/object_classes/gui_object.h
+
+/home/lolpie/projects/racing/object_classes/object.h
 
 /home/lolpie/projects/racing/object_classes/parent_object.h
 
@@ -43,18 +49,12 @@ chrono
 -
 
 /home/lolpie/projects/racing/settings/project_files.h
-../helping_function/perfect_collision.h
-/home/lolpie/projects/racing/helping_function/perfect_collision.h
-../helping_function/scale.h
-/home/lolpie/projects/racing/helping_function/scale.h
-../object_classes/parent_object.h
-/home/lolpie/projects/racing/object_classes/parent_object.h
-../object_classes/game_object.h
-/home/lolpie/projects/racing/object_classes/game_object.h
-../info_classes/info.h
-/home/lolpie/projects/racing/info_classes/info.h
-../info_classes/info_functions.h
-/home/lolpie/projects/racing/info_classes/info_functions.h
+../helping/perfect_collision.h
+/home/lolpie/projects/racing/helping/perfect_collision.h
+../helping/scale.h
+/home/lolpie/projects/racing/helping/scale.h
+../helping/type_class.h
+/home/lolpie/projects/racing/helping/type_class.h
 ../settings/window.h
 /home/lolpie/projects/racing/settings/window.h
 ../settings/textures.h
@@ -63,6 +63,18 @@ chrono
 /home/lolpie/projects/racing/object_parameters/draw.h
 ../object_parameters/scale.h
 /home/lolpie/projects/racing/object_parameters/scale.h
+../object_classes/parent_object.h
+/home/lolpie/projects/racing/object_classes/parent_object.h
+../object_classes/object.h
+/home/lolpie/projects/racing/object_classes/object.h
+../object_classes/game_object.h
+/home/lolpie/projects/racing/object_classes/game_object.h
+../object_classes/gui_object.h
+/home/lolpie/projects/racing/object_classes/gui_object.h
+../info_classes/info.h
+/home/lolpie/projects/racing/info_classes/info.h
+../info_classes/info_functions.h
+/home/lolpie/projects/racing/info_classes/info_functions.h
 ../stages/main_menu.h
 /home/lolpie/projects/racing/stages/main_menu.h
 
