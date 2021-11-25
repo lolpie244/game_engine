@@ -4,7 +4,7 @@
 
 namespace objects
 {
-    class gui_object : public object<gui_object>
+    class gui_object : public object
     {
     public:
         template<typename T, typename P>

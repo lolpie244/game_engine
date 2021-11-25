@@ -8,18 +8,35 @@ namespace info
     using namespace std;
     class parent
     {
-
+    public:
+        void print()
+        {
+            cout << 1;
+        }
     };
     class render : public parent
     {
     public:
-        shared_ptr<RenderWindow> window;
+        sh_p<RenderWindow> window;
         chrono::system_clock::time_point time_point;
 
-        render(RenderWindow* new_window)
+        render(sh_p<RenderWindow> new_window)
         {
-            window = shared_ptr<RenderWindow>(new_window);
+            window = new_window;
             time_point = std::chrono::system_clock::now();
+        }
+    };
+    class gui : public parent
+    {
+    public:
+        vector<objects::gui_object> objects;
+        event::observer_list observer_list;
+        void draw(sf::RenderWindow& window)
+        {
+            for(auto obj: objects)
+            {
+                window.draw(obj);
+            }
         }
     };
 }

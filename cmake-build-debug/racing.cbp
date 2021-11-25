@@ -80,13 +80,19 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/lolpie/projects/racing/event/event.h">
+			<Option target="racing"/>
+		</Unit>
+		<Unit filename="/home/lolpie/projects/racing/event/observer_object.h">
+			<Option target="racing"/>
+		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/helping/perfect_collision.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/helping/scale.h">
 			<Option target="racing"/>
 		</Unit>
-		<Unit filename="/home/lolpie/projects/racing/helping/type_class.h">
+		<Unit filename="/home/lolpie/projects/racing/helping/type_func.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/info_classes/info.h">
@@ -128,7 +134,13 @@
 		<Unit filename="/home/lolpie/projects/racing/settings/window.h">
 			<Option target="racing"/>
 		</Unit>
-		<Unit filename="/home/lolpie/projects/racing/stages/main_menu.h">
+		<Unit filename="/home/lolpie/projects/racing/stages/main_menu/events.h">
+			<Option target="racing"/>
+		</Unit>
+		<Unit filename="/home/lolpie/projects/racing/stages/main_menu/gui.h">
+			<Option target="racing"/>
+		</Unit>
+		<Unit filename="/home/lolpie/projects/racing/stages/main_menu/main_menu.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/CMakeLists.txt">

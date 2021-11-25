@@ -5,9 +5,11 @@ namespace main_menu
 {
     using namespace std;
     using namespace sf;
-    void main(map<string, info::parent*> main_info)
+    void main(map<string, sh_p<info::parent>> main_info)
     {
-        shared_ptr<RenderWindow> window = info::get_info<info::render>(main_info, "render")->window;
+//        format_gui(main_info);
+        sh_p<RenderWindow> window = info::get_info<info::render>(main_info, "render")->window;
+//        sh_p<info::gui> gui = info::get_info<info::gui>(main_info, "gui");
         while (window->isOpen())
         {
             Event event;
@@ -15,6 +17,7 @@ namespace main_menu
             {
                 if (event.type == sf::Event::Closed)
                     window->close();
+//                gui->observer_list.get_observer(event).notify();
                 if(event.type == sf::Event::Resized)
                 {
                     sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
@@ -22,6 +25,8 @@ namespace main_menu
                 }
 
             }
+            window->clear();
+//            gui->draw(*window);
             window->display();
         }
     }

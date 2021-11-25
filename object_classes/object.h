@@ -4,8 +4,7 @@
 
 namespace objects
 {
-    template<typename Type>
-    class object : public parent_object<Type>, public Drawable
+    class object : public parent_object, public Drawable
     {
     public:
         shared_ptr<object_parameters::none_scale> scale_obj;
