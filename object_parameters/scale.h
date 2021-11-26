@@ -2,9 +2,10 @@
 // Created by lolpie on 14.11.21.
 //
 
+
 namespace object_parameters
 {
-
+    using namespace helping_function;
     using namespace sf;
     class none_scale
     {
@@ -25,7 +26,7 @@ namespace object_parameters
     public:
         void scale(Sprite& sprite, Window& window) override
         {
-            auto size = settings::get_window_scale(window);
+            auto size = get_window_scale(window);
             auto scale = sprite.getScale();
             float min_ = std::min(size.x, size.y);
             float old_min = std::min(old_scale.x, old_scale.y);
@@ -39,7 +40,7 @@ namespace object_parameters
     public:
         void scale(Sprite& sprite, Window& window) override
         {
-            auto size = settings::get_window_scale(window);
+            auto size = get_window_scale(window);
             sprite.setPosition(sprite.getPosition().x / old_scale.x * size.x, sprite.getPosition().y / old_scale.y * size.y);
             old_scale = size;
         }

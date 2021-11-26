@@ -15,18 +15,18 @@ namespace main_menu
             Event event;
             while (window->pollEvent(event))
             {
-                if (event.type == sf::Event::Closed) {
-                    cout << event.type << ' ' << sf::Event::EventType::MouseButtonPressed << '\n';
+                if (event.type == sf::Event::Closed)
+                {
                     window->close();
                 }
 //                if(typeid(event).name() == typeid(sf::Event::MouseButtonPressed).name())
 
-                gui->observer_list.get_observer(event).notify(event);
-//                if(event.type == sf::Event::Resized)
-//                {
-//                    sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-//                    window->setView(sf::View(visibleArea));
-//                }
+                gui->observer_list.notify(event);
+                if(event.type == sf::Event::Resized)
+                {
+                    sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+                    window->setView(sf::View(visibleArea));
+                }
 
             }
             window->clear();

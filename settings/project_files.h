@@ -4,10 +4,9 @@
 
 #include "../helping/perfect_collision.h"
 #include "../helping/scale.h"
-#include "../helping/type_func.h"
+#include "../helping/window.h"
 
 
-#include "../settings/window.h"
 #include "../settings/textures.h"
 
 
@@ -20,13 +19,17 @@
 #include "../object_classes/game_object.h"
 #include "../object_classes/gui_object.h"
 
+
 #include "../event/observer_object.h"
 #include "../info_classes/info.h"
 #include "../event/event.h"
 
+
 #include "../info_classes/info_functions.h"
+
 
 #include "../stages/main_menu/events.h"
 #include "../stages/main_menu/gui.h"
 #include "../stages/main_menu/main_menu.h"
+
 

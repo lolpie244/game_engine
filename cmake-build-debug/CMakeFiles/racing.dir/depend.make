@@ -6,7 +6,7 @@ CMakeFiles/racing.dir/main.cpp.o: \
  ../event/observer_object.h \
  ../helping/perfect_collision.h \
  ../helping/scale.h \
- ../helping/type_func.h \
+ ../helping/window.h \
  ../info_classes/info.h \
  ../info_classes/info_functions.h \
  ../main.cpp \
@@ -19,7 +19,6 @@ CMakeFiles/racing.dir/main.cpp.o: \
  ../settings/library.h \
  ../settings/project_files.h \
  ../settings/textures.h \
- ../settings/window.h \
  ../stages/main_menu/events.h \
  ../stages/main_menu/gui.h \
  ../stages/main_menu/main_menu.h

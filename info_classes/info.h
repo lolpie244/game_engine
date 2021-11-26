@@ -29,8 +29,7 @@ namespace info
         event::observer_list observer_list;
         void draw(sf::RenderWindow& window)
         {
-            for(auto obj: objects)
-            {
+            for(auto obj: objects)            {
                 window.draw(*obj);
             }
         }

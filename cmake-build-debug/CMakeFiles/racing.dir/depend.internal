@@ -6,7 +6,7 @@ CMakeFiles/racing.dir/main.cpp.o
  /home/lolpie/projects/racing/event/observer_object.h
  /home/lolpie/projects/racing/helping/perfect_collision.h
  /home/lolpie/projects/racing/helping/scale.h
- /home/lolpie/projects/racing/helping/type_func.h
+ /home/lolpie/projects/racing/helping/window.h
  /home/lolpie/projects/racing/info_classes/info.h
  /home/lolpie/projects/racing/info_classes/info_functions.h
  /home/lolpie/projects/racing/main.cpp
@@ -19,7 +19,6 @@ CMakeFiles/racing.dir/main.cpp.o
  /home/lolpie/projects/racing/settings/library.h
  /home/lolpie/projects/racing/settings/project_files.h
  /home/lolpie/projects/racing/settings/textures.h
- /home/lolpie/projects/racing/settings/window.h
  /home/lolpie/projects/racing/stages/main_menu/events.h
  /home/lolpie/projects/racing/stages/main_menu/gui.h
  /home/lolpie/projects/racing/stages/main_menu/main_menu.h

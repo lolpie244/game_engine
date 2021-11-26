@@ -14,7 +14,7 @@
 
 /home/lolpie/projects/racing/helping/scale.h
 
-/home/lolpie/projects/racing/helping/type_func.h
+/home/lolpie/projects/racing/helping/window.h
 
 /home/lolpie/projects/racing/info_classes/info.h
 
@@ -53,16 +53,16 @@ chrono
 -
 vector
 -
+functional
+-
 
 /home/lolpie/projects/racing/settings/project_files.h
 ../helping/perfect_collision.h
 /home/lolpie/projects/racing/helping/perfect_collision.h
 ../helping/scale.h
 /home/lolpie/projects/racing/helping/scale.h
-../helping/type_func.h
-/home/lolpie/projects/racing/helping/type_func.h
-../settings/window.h
-/home/lolpie/projects/racing/settings/window.h
+../helping/window.h
+/home/lolpie/projects/racing/helping/window.h
 ../settings/textures.h
 /home/lolpie/projects/racing/settings/textures.h
 ../object_parameters/draw.h
@@ -93,8 +93,6 @@ vector
 /home/lolpie/projects/racing/stages/main_menu/main_menu.h
 
 /home/lolpie/projects/racing/settings/textures.h
-
-/home/lolpie/projects/racing/settings/window.h
 
 /home/lolpie/projects/racing/stages/main_menu/events.h
 
