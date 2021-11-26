@@ -9,10 +9,6 @@ namespace info
     class parent
     {
     public:
-        void print()
-        {
-            cout << 1;
-        }
     };
     class render : public parent
     {
@@ -29,13 +25,13 @@ namespace info
     class gui : public parent
     {
     public:
-        vector<objects::gui_object> objects;
+        vector<sh_p<objects::gui_object>> objects;
         event::observer_list observer_list;
         void draw(sf::RenderWindow& window)
         {
             for(auto obj: objects)
             {
-                window.draw(obj);
+                window.draw(*obj);
             }
         }
     };

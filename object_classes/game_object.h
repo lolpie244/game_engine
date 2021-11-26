@@ -9,7 +9,7 @@ namespace objects
     {
     public:
         template<typename T, typename P>
-        game_object(shared_ptr<Texture>& new_texture, Rect<float> rect, T* scale, P* draw):
+        game_object(shared_ptr<Texture> new_texture, Rect<float> rect, T* scale, P* draw):
                 object(new_texture, rect, scale, draw){}
 
         bool button_click(Vector2<float> cords)

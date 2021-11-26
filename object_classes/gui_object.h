@@ -13,7 +13,9 @@ namespace objects
 
         bool button_click(Vector2<float> cords)
         {
-            sf::Image self_img = this->texture->copyToImage();
+            Texture text;
+            text.loadFromFile("textures/banner_start_1.png");
+            auto self_img = text.copyToImage();
             sf::Sprite some_sprite = Sprite(*textures::pixel.get());
             some_sprite.setPosition(cords.x, cords.y);
             sf::Image some_img = textures::pixel.get()->copyToImage();

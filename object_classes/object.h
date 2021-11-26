@@ -13,7 +13,7 @@ namespace objects
         template<typename T, typename P>
         object(shared_ptr<Texture>& new_texture, Rect<float> rect, T* scale, P* draw)
         {
-            this->scale_obj = shared_ptr<T>(scale);
+            this->scale_obj = shared_ptr<T>();
             this->draw_obj = shared_ptr<P>(draw);
 
             this->texture = new_texture;

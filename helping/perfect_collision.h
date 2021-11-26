@@ -16,7 +16,6 @@ namespace helping_function {
         sf::IntRect boundsA(FToIRect(a.getGlobalBounds()));
         sf::IntRect boundsB(FToIRect(b.getGlobalBounds()));
         sf::IntRect intersection;
-
         if (boundsA.intersects(boundsB, intersection)) {
             const sf::Transform &inverseA(a.getInverseTransform());
             const sf::Transform &inverseB(b.getInverseTransform());
@@ -39,8 +38,8 @@ namespace helping_function {
                     int idxA = ((int) vecA.x + ((int) vecA.y) * sizeA.x) * 4 + 3;
                     int idxB = ((int) vecB.x + ((int) vecB.y) * sizeB.x) * 4 + 3;
 
-                    if (vecA.x > 0 && vecA.y > 0 &&
-                        vecB.x > 0 && vecB.y > 0 &&
+                    if (vecA.x >= 0 && vecA.y >= 0 &&
+                        vecB.x >= 0 && vecB.y >= 0 &&
                         vecA.x < sizeA.x && vecA.y < sizeA.y &&
                         vecB.x < sizeB.x && vecB.y < sizeB.y &&
                         pixA[idxA] > 0 &&
