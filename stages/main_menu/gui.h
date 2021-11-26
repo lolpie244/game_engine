@@ -19,11 +19,17 @@ namespace main_menu
     void format_gui(map<string, sh_p<info::parent>>& main_info)
     {
         sh_p<info::gui> gui(new info::gui());
+        auto window = info::get_info<info::render>(main_info, "render")->window;
+
+        gui->objects.emplace_back(new gui_object(textures::test.get(), Rect<float>(960, 540, 1, 1),
+                                  new coord_scale, new common_draw));
+        new event::scale(gui->objects[gui->objects.size() - 1], window, gui->event_manager);
+
         gui->objects.emplace_back(new gui_object(textures::banner_start_1.get(), Rect<float>(200, 200, 0.2, 0.2),
                                new full_scale, new common_draw));
-        auto window = info::get_info<info::render>(main_info, "render")->window;
-        new event::button(gui->objects[0], print, print_1, gui->observer_list);
-        new event::scale(gui->objects[0], window, gui->observer_list);
+
+        new event::button(gui->objects[gui->objects.size() - 1], print, print_1, gui->event_manager);
+        new event::scale(gui->objects[gui->objects.size() - 1], window, gui->event_manager);
 
         main_info["gui"] = gui;
 

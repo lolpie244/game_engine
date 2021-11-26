@@ -15,7 +15,7 @@ namespace info
     public:
         sh_p<RenderWindow> window;
         chrono::system_clock::time_point time_point;
-
+        event::observer_list event_manager;
         render(sh_p<RenderWindow> new_window)
         {
             window = new_window;
@@ -26,12 +26,11 @@ namespace info
     {
     public:
         vector<sh_p<objects::gui_object>> objects;
-        event::observer_list observer_list;
+        event::observer_list event_manager;
         void draw(sf::RenderWindow& window)
         {
-            for(auto obj: objects)            {
+            for(auto obj: objects)
                 window.draw(*obj);
-            }
         }
     };
 }

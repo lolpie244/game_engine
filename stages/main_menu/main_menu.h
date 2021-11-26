@@ -9,25 +9,15 @@ namespace main_menu
     {
         format_gui(main_info);
         RenderWindow* window = info::get_info<info::render>(main_info, "render")->window.get();
+        sh_p<info::render> render = info::get_info<info::render>(main_info, "render");
         sh_p<info::gui> gui = info::get_info<info::gui>(main_info, "gui");
         while (window->isOpen())
         {
             Event event;
             while (window->pollEvent(event))
             {
-                if (event.type == sf::Event::Closed)
-                {
-                    window->close();
-                }
-//                if(typeid(event).name() == typeid(sf::Event::MouseButtonPressed).name())
-
-                gui->observer_list.notify(event);
-                if(event.type == sf::Event::Resized)
-                {
-                    sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-                    window->setView(sf::View(visibleArea));
-                }
-
+                render->event_manager.notify(event);
+                gui->event_manager.notify(event);
             }
             window->clear();
             gui->draw(*window);
