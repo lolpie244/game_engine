@@ -4,20 +4,12 @@
 
 
 
-namespace main_menu
+namespace game
 {
     using namespace std;
     using namespace sf;
     using namespace object_parameters;
     using namespace objects;
-    void print()
-    {
-        cout << "flag\n";
-    }
-    void print_1()
-    {
-        cout << "button\n";
-    }
     void format_gui(map<string, sh_p<info::parent>>& main_info)
     {
         sh_p<info::gui> gui(new info::gui());
@@ -25,13 +17,9 @@ namespace main_menu
                                                   new coord_scale, new common_draw));
 
 
-        gui->objects.emplace_back(new button(pre_loaded::play.get(), pre_loaded::play_pressed.get(),
+        gui->objects.emplace_back(new button(pre_loaded::back.get(), pre_loaded::back_pressed.get(),
                      Rect<float>(500, 500, 2, 2),new full_scale, new common_draw));
-        new event::button(gui->objects[gui->objects.size() - 1], [](){}, [&main_info](){ play_press(main_info);}, gui->event_manager);
-
-        gui->objects.emplace_back(new gui_objects(pre_loaded::banner_start_1.get(), Rect<float>(200, 200, 0.2, 0.2),
-                                                  new full_scale, new common_draw));
-        new event::button(gui->objects[gui->objects.size() - 1], [](){}, print, gui->event_manager);
+        new event::button(gui->objects[gui->objects.size() - 1], [](){}, [&main_info](){ back_press(main_info);}, gui->event_manager);
 
 
         auto window = info::get_info<info::render>(main_info, "render")->window;

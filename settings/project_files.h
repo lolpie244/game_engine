@@ -3,11 +3,10 @@
 //
 
 #include "../helping/perfect_collision.h"
-#include "../helping/scale.h"
 #include "../helping/window.h"
 
 
-#include "../settings/textures.h"
+#include "../settings/pre_loaded.h"
 
 
 #include "../object_parameters/draw.h"
@@ -16,20 +15,23 @@
 
 #include "../object_classes/parent_object.h"
 #include "../object_classes/object.h"
-#include "../object_classes/game_object.h"
-#include "../object_classes/gui_object.h"
+#include "../object_classes/game_objects.h"
+#include "../object_classes/gui_objects.h"
 
 
 #include "../event/observer_object.h"
 #include "../info_classes/info.h"
-#include "../event/event.h"
+#include "../event/common_event.h"
+#include "../event/button_event.h"
 
-
-#include "../info_classes/info_functions.h"
-
+#include "../settings/prototype.h"
 
 #include "../stages/main_menu/events.h"
 #include "../stages/main_menu/gui.h"
 #include "../stages/main_menu/main_menu.h"
 
+
+#include "../stages/game/events.h"
+#include "../stages/game/gui.h"
+#include "../stages/game/game.h"
 

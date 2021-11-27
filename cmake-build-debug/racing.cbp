@@ -80,7 +80,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/lolpie/projects/racing/event/event.h">
+		<Unit filename="/home/lolpie/projects/racing/event/button_event.h">
+			<Option target="racing"/>
+		</Unit>
+		<Unit filename="/home/lolpie/projects/racing/event/common_event.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/event/observer_object.h">
@@ -89,25 +92,19 @@
 		<Unit filename="/home/lolpie/projects/racing/helping/perfect_collision.h">
 			<Option target="racing"/>
 		</Unit>
-		<Unit filename="/home/lolpie/projects/racing/helping/scale.h">
-			<Option target="racing"/>
-		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/helping/window.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/info_classes/info.h">
 			<Option target="racing"/>
 		</Unit>
-		<Unit filename="/home/lolpie/projects/racing/info_classes/info_functions.h">
-			<Option target="racing"/>
-		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/main.cpp">
 			<Option target="racing"/>
 		</Unit>
-		<Unit filename="/home/lolpie/projects/racing/object_classes/game_object.h">
+		<Unit filename="/home/lolpie/projects/racing/object_classes/game_objects.h">
 			<Option target="racing"/>
 		</Unit>
-		<Unit filename="/home/lolpie/projects/racing/object_classes/gui_object.h">
+		<Unit filename="/home/lolpie/projects/racing/object_classes/gui_objects.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/object_classes/object.h">
@@ -125,10 +122,13 @@
 		<Unit filename="/home/lolpie/projects/racing/settings/library.h">
 			<Option target="racing"/>
 		</Unit>
+		<Unit filename="/home/lolpie/projects/racing/settings/pre_loaded.h">
+			<Option target="racing"/>
+		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/settings/project_files.h">
 			<Option target="racing"/>
 		</Unit>
-		<Unit filename="/home/lolpie/projects/racing/settings/textures.h">
+		<Unit filename="/home/lolpie/projects/racing/settings/prototype.h">
 			<Option target="racing"/>
 		</Unit>
 		<Unit filename="/home/lolpie/projects/racing/stages/main_menu/events.h">

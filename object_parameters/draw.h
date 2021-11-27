@@ -10,10 +10,13 @@ namespace object_parameters
     class common_draw
     {
     public:
-        void draw(RenderTarget& target, RenderStates states, Sprite sprite, Texture& texture) const
+        virtual void draw(RenderTarget& target, RenderStates states, Sprite sprite, Texture& texture) const
         {
             target.draw(sprite, states);
         }
-
+        virtual void draw(RenderTarget& target, RenderStates states, Text text) const
+        {
+            target.draw(text);
+        }
     };
 }

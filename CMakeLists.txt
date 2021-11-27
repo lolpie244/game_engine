@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 ##set(SFML_DIR "/usr/local/lib/cmake/SFML")
 ##
 find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
-add_executable(racing main.cpp settings/library.h settings/project_files.h object_classes/game_object.h object_parameters/scale.h settings/textures.h object_parameters/draw.h stages/main_menu/main_menu.h object_classes/parent_object.h helping/perfect_collision.h helping/scale.h info_classes/info.h info_classes/info_functions.h object_classes/gui_object.h object_classes/object.h helping/window.h event/observer_object.h event/event.h stages/main_menu/events.h stages/main_menu/gui.h)
+add_executable(racing main.cpp settings/library.h settings/project_files.h object_classes/game_objects.h object_parameters/scale.h settings/pre_loaded.h object_parameters/draw.h stages/main_menu/main_menu.h object_classes/parent_object.h helping/perfect_collision.h info_classes/info.h object_classes/gui_objects.h object_classes/object.h helping/window.h event/observer_object.h event/common_event.h stages/main_menu/events.h stages/main_menu/gui.h event/button_event.h settings/prototype.h)
 target_link_libraries(racing sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
 ##

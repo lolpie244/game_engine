@@ -16,19 +16,17 @@ namespace objects
             this->scale_obj = shared_ptr<T>(scale);
             this->draw_obj = shared_ptr<P>(draw);
 
-            this->texture = new_texture;
-            this->sprite = Sprite(*this->texture);
-            auto size = this->get_size();
-            this->sprite.setOrigin(size.x / 2.0, size.y / 2.0);
+            this->sprite = Sprite();
+            this->update_texture(new_texture);
             this->sprite.setPosition(rect.left, rect.top);
             this->sprite.setScale(rect.width, rect.height);
         }
         bool button_click(Vector2<float> cords)
         {
             auto self_img = this->texture->copyToImage();
-            sf::Sprite some_sprite = Sprite(*textures::pixel.get());
+            sf::Sprite some_sprite = Sprite(*pre_loaded::pixel.get());
             some_sprite.setPosition(cords.x, cords.y);
-            sf::Image some_img = textures::pixel.get()->copyToImage();
+            sf::Image some_img = pre_loaded::pixel.get()->copyToImage();
             return helping_function::PixelPerfectCollision(this->sprite, some_sprite, self_img, some_img);
         }
         bool object_collision(object* some_obj)
@@ -37,11 +35,11 @@ namespace objects
             sf::Image some_img = some_obj->get_texture()->copyToImage();
             return helping_function::PixelPerfectCollision(this->sprite, some_obj->get_sprite(), self_img, some_img);
         }
-        void scale(Window& window)
+        virtual void scale(Window& window)
         {
             scale_obj->scale(this->sprite, window);
         }
-        void draw(RenderTarget& target, RenderStates states) const
+        virtual void draw(RenderTarget& target, RenderStates states) const
         {
             draw_obj->draw(target, states, this->sprite, *this->texture);
         }
