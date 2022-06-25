@@ -9,7 +9,7 @@ namespace objects
     public:
         shared_ptr<object_parameters::none_scale> scale_obj;
         shared_ptr<object_parameters::common_draw> draw_obj;
-        object()= default;
+        object() = default;
         template<typename T, typename P>
         object(shared_ptr<Texture>& new_texture, Rect<float> rect, T* scale, P* draw)
         {

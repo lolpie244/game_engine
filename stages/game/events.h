@@ -9,6 +9,12 @@ namespace game
     using namespace sf;
     void back_press(map<string, sh_p<info::parent>>& main_info)
     {
-        main_menu::main(main_info);
+        (new main_menu_np::main_menu(main_info))->main();
+    }
+
+    void game::init_event_objects()
+    {
+        new event::button(&back_button, [](){}, [this](){ back_press(*this->main_info); }, gui.event_manager);
+        add_scale();
     }
 }

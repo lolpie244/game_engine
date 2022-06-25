@@ -25,13 +25,12 @@
 #include "../event/button_event.h"
 
 #include "../settings/prototype.h"
+#include "../stages/parent_stage_class.h"
+
+#include "../stages/main_menu/main_menu.h"
+#include "../stages/game/game.h"
+
 
 #include "../stages/main_menu/events.h"
-#include "../stages/main_menu/gui.h"
-#include "../stages/main_menu/main_menu.h"
-
-
 #include "../stages/game/events.h"
-#include "../stages/game/gui.h"
-#include "../stages/game/game.h"
 

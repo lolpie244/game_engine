@@ -14,5 +14,5 @@ int main()
     events->bind_event(Event::Resized, [&window](Event event){
         sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
         window->setView(sf::View(visibleArea));});
-    main_menu::main(main_info);
+    (new main_menu_np::main_menu(main_info))->main();
 }

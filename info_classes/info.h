@@ -12,10 +12,7 @@ namespace info
     {
         return static_pointer_cast<T>(container[field]);
     }
-    class parent
-    {
-    public:
-    };
+    class parent{};
     class render : public parent
     {
     public:
@@ -31,7 +28,7 @@ namespace info
     class gui : public parent
     {
     public:
-        vector<sh_p<objects::gui_objects>> objects;
+        vector<objects::gui_objects*> objects;
         event::observer_list event_manager;
         void draw(sf::RenderWindow& window)
         {

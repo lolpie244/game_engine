@@ -7,6 +7,7 @@ namespace objects
     class gui_objects : public object
     {
     public:
+        gui_objects()= default;
         template<typename T, typename P>
         gui_objects(shared_ptr<Texture>& new_texture, Rect<float> rect, T* scale, P* draw):
                 object(new_texture, rect, scale, draw){}
@@ -43,6 +44,7 @@ namespace objects
         sh_p<sf::Texture> pressed_texture;
         sh_p<sf::Texture> unpressed_texture;
     public:
+        button(){}
         template<typename T, typename P>
         button(shared_ptr<Texture>& new_texture, shared_ptr<Texture>& new_pressed_texture, Rect<float> rect,
                     T* scale, P* draw):

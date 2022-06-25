@@ -5,24 +5,28 @@ namespace game
 {
     using namespace std;
     using namespace sf;
-    void main(map<string, sh_p<info::parent>>& main_info)
-    {
-        format_gui(main_info);
-        RenderWindow* window = info::get_info<info::render>(main_info, "render")->window.get();
-        sh_p<info::render> render = info::get_info<info::render>(main_info, "render");
-        sh_p<info::gui> gui = info::get_info<info::gui>(main_info, "gui");
-        while (window->isOpen())
-        {
-            Event event;
-            while (window->pollEvent(event))
-            {
-                render->event_manager.notify(event);
-                gui->event_manager.notify(event);
-            }
-            window->clear();
-            gui->draw(*window);
-            window->display();
-        }
-    }
+    using namespace parent_stage_class;
+    using namespace object_parameters;
 
+    class game: public parent_stage
+    {
+    private:
+        button back_button;
+        gui_objects background;
+    protected:
+        void init_gui_objects() override
+        {
+            this->gui = info::gui();
+            background = gui_objects(pre_loaded::background.get(), Rect<float>(960, 540, 0.5, 0.5),
+                                                                    new coord_scale, new common_draw);
+            back_button = button(pre_loaded::back.get(), pre_loaded::back_pressed.get(),
+                                            Rect<float>(500, 500, 2, 2),new full_scale, new common_draw);
+            gui.objects = {&background, &back_button};
+        }
+
+        void init_event_objects() override;
+    public:
+        game(map<string, sh_p<info::parent>>& main_info):
+            parent_stage(main_info){}
+    };
 }

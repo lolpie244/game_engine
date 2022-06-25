@@ -8,6 +8,7 @@ namespace objects
     class game_objects : public object
     {
     public:
+        game_objects()= default;
         template<typename T, typename P>
         game_objects(shared_ptr<Texture> new_texture, Rect<float> rect, T* scale, P* draw):
                 object(new_texture, rect, scale, draw){}

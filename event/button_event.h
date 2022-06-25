@@ -10,21 +10,22 @@ namespace event
         sh_p<T_released_func> release_function;
         sh_p<T_press_func> press_function;
     public:
-        button(sh_p<T_obj> new_obj, T_press_func new_press_function = [](){}, T_released_func new_release_func=[](){}):
+        button()= default;
+        button(T_obj* new_obj, T_press_func new_press_function = [](){}, T_released_func new_release_func=[](){}):
             event<T_obj>(new_obj)
         {
             this->release_function = shared_ptr<T_released_func>(new T_released_func(new_release_func));
             this->press_function = shared_ptr<T_press_func>(new T_press_func(new_press_function));
         }
         template<typename T_observer>
-        button(sh_p<T_obj> new_obj, T_press_func new_press_function, T_released_func new_release_func, T_observer& observer):
+        button(T_obj* new_obj, T_press_func new_press_function, T_released_func new_release_func, T_observer& observer):
                 button(new_obj, new_press_function, new_release_func)
         {
             add_to_observer(observer);
         }
         bool is_mouse_in(sf::Event sfml_event)
         {
-            auto obj = this->obj.get();
+            auto obj = this->obj;
 
             return obj->button_click(sf::Vector2<float>(sfml_event.mouseButton.x, sfml_event.mouseButton.y));
         }
@@ -37,7 +38,7 @@ namespace event
             }
             try
             {
-                auto object = dynamic_cast<objects::button *>(this->obj.get());
+                auto object = dynamic_cast<objects::button *>(this->obj);
                 if (object)
                     object->pressed();
             }
@@ -49,7 +50,7 @@ namespace event
         {
             try
             {
-                auto object = dynamic_cast<objects::button *>(this->obj.get());
+                auto object = dynamic_cast<objects::button *>(this->obj);
                 if (object)
                     object->unpressed();
             }
