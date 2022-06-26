@@ -1,8 +1,10 @@
 //
 // Created by lolpie on 14.11.21.
 //
-
+#include "../settings/constants_and_defines.h"
 #include "../helping/perfect_collision.h"
+#include "../helping/math.h"
+#include "../helping/sat_collision.h"
 #include "../helping/window.h"
 
 
