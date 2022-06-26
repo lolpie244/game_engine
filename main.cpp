@@ -5,8 +5,8 @@ using namespace std;
 int main()
 {
     vector<pair<double, double>>a, b;
-    a = {{1, 4}, {3, 6}, {7, 5}, {6, 3}, {4, 5}, {3, 2}};
-    b = {{4, 1}, {5, 2}, {4, 3}, {5, 3}, {7, 2}};
+    a = {{3, 3}, {6, 7}, {7, 1}};
+    b = {{6, 4}, {6, 7}, {12, 7}, {12, 4}};
     cout << helping_function::collision(a, b);
 //    sh_p<sf::RenderWindow> window(new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!"));
 //    window->setFramerateLimit(120);

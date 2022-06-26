@@ -39,6 +39,6 @@ namespace helping_function
     }
     bool collision(vector<pair<double, double>>& first_figure, vector<pair<double, double>>& second_figure)
     {
-        return one_side_collision(first_figure, second_figure) || one_side_collision(second_figure, first_figure);
+        return one_side_collision(first_figure, second_figure) && one_side_collision(second_figure, first_figure);
     }
 }
