@@ -5,21 +5,22 @@
 namespace helping_function
 {
     using namespace std;
-    pair<double, double> get_max_segment(vector<pair<double, double>>& figure, double k, double c)
+    using namespace structs;
+    pair<double, double> get_max_segment(vector<Point>& figure, double k, double c)
     {
         double mx = min_d;
         double mn = max_d;
         for(int i = 0; i < figure.size(); i++)
         {
             auto projection_cords = point_projection(figure[i], k, c);
-            double new_value = projection_cords.first + projection_cords.second;
+            double new_value = projection_cords.x + projection_cords.y;
             mx = max(mx, new_value);
             mn = min(mn, new_value);
         }
         return {mn, mx};
     }
 
-    bool one_side_collision(vector<pair<double, double>>& first_figure, vector<pair<double, double>>& second_figure)
+    bool one_side_collision(vector<Point>& first_figure, vector<Point>& second_figure)
     {
         unordered_set<double> set_of_k;
         size_t len = first_figure.size();
@@ -37,7 +38,7 @@ namespace helping_function
         }
         return true;
     }
-    bool collision(vector<pair<double, double>>& first_figure, vector<pair<double, double>>& second_figure)
+    bool collision(vector<Point>& first_figure, vector<Point>& second_figure)
     {
         return one_side_collision(first_figure, second_figure) && one_side_collision(second_figure, first_figure);
     }
