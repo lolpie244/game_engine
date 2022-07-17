@@ -20,7 +20,7 @@ namespace helping_function
         return {mn, mx};
     }
 
-    bool one_side_collision(vector<Point>& first_figure, vector<Point>& second_figure)
+    bool one_side_convex_collision(vector<Point>& first_figure, vector<Point>& second_figure)
     {
         unordered_set<double> set_of_k;
         size_t len = first_figure.size();
@@ -38,8 +38,18 @@ namespace helping_function
         }
         return true;
     }
+    bool collision(vector<vector<Point>>& first_figure, vector<vector<Point>>& second_figure)
+    {
+        for(auto first_convex_figure : first_figure)
+            for(auto second_convex_figure: second_figure)
+                if(one_side_convex_collision(first_convex_figure, second_convex_figure) &&
+                    one_side_convex_collision(second_convex_figure, first_convex_figure))
+                    return true;
+        return false;
+    }
     bool collision(vector<Point>& first_figure, vector<Point>& second_figure)
     {
-        return one_side_collision(first_figure, second_figure) && one_side_collision(second_figure, first_figure);
+        return one_side_convex_collision(first_figure, second_figure) &&
+            one_side_convex_collision(second_figure, first_figure);
     }
 }
