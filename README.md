@@ -1,2 +1,2 @@
-# racing
-racing game in sfml
+# game engine
+game engine in sfml
