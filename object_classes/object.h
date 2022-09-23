@@ -30,13 +30,15 @@ namespace objects_np
             this->sprite.setPosition(rect.left, rect.top);
             this->sprite.setScale(rect.width, rect.height);
         }
-        bool object_collision(object* some_obj)
+        virtual bool object_collision(object* some_obj)
         {
             if(!this->is_active || !some_obj->is_active)
                 return false;
-            auto rect_1 = this->get_rect();
-            auto rect_2 = some_obj->get_rect();
-            return helping_function::collision(rect_1, rect_2);
+            if(this->convex_points.empty())
+                this->update_concave_to_convex();
+            if(some_obj->convex_points.empty())
+                some_obj->update_concave_to_convex();
+            return helping_function::collision(this->convex_points, some_obj->convex_points);
         }
         bool button_click(Vector2<float> cords)
         {
@@ -59,7 +61,7 @@ namespace objects_np
         virtual void move()
         {
             if(is_active)
-                move_obj->move(this->sprite, speed);
+                move_obj->move(this->sprite, this->points, this->convex_points, speed);
         }
 
     };

@@ -5,7 +5,7 @@
 
 
 namespace helping_function {
-// Return the a float rect as an int rect.
+// Return thea float rect as an int rect.
     inline sf::IntRect FToIRect(const sf::FloatRect &f) {
         return sf::IntRect((int) f.left, (int) f.top, (int) f.width, (int) f.height);
     }

@@ -10,19 +10,16 @@ namespace object_parameters
     public:
         virtual void move(Sprite& sprite, structs::Point speed){}
         virtual void move(Sprite& sprite, vector<structs::Point>& points, structs::Point speed){}
-        virtual void move(vector<structs::Point>& points, structs::Point speed){}
         virtual void move(vector<structs::Point>& points, vector<vector<structs::Point>>& convex_points, structs::Point speed){}
+        virtual void move(Sprite& sprite, vector<structs::Point>& points, vector<vector<structs::Point>>& convex_points, structs::Point speed){}
     };
     class common_move: public static_move
     {
-        void move(Sprite& sprite, structs::Point speed) override
+        void move(Sprite& sprite, vector<structs::Point>& points, vector<vector<structs::Point>>& convex_points, structs::Point speed) override
         {
             sprite.setPosition(sprite.getPosition().x + speed.x, sprite.getPosition().y + speed.y);
+            move(points, convex_points, speed);
         }
-    };
-    class convex_move: public static_move
-    {
-    public:
         void move(vector<structs::Point>& points, vector<vector<structs::Point>>& convex_points, structs::Point speed) override
         {
             for(int i = 0; i < convex_points.size(); i++)

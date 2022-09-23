@@ -45,6 +45,7 @@ namespace helping_function
                 if(one_side_convex_collision(first_convex_figure, second_convex_figure) &&
                     one_side_convex_collision(second_convex_figure, first_convex_figure))
                     return true;
+
         return false;
     }
     bool collision(vector<Point>& first_figure, vector<Point>& second_figure)

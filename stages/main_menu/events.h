@@ -23,8 +23,7 @@ namespace main_menu_np
 
     bool ok_button_pressed(main_menu* screen_stage)
     {
-        int event_id = sf::Event::MouseButtonPressed;
-        screen_stage->elements.event_manager.remove_event(event_id, &screen_stage->background);
+        screen_stage->elements.event_manager.remove_event(sf::Event::MouseButtonPressed, &screen_stage->background);
         screen_stage->main_button.set_textures(pre_loaded::green_plus_released.get(),
                                                pre_loaded::green_plus_pressed.get());
         screen_stage->current_convex += 1;
@@ -37,14 +36,15 @@ namespace main_menu_np
         screen_stage->main_button.is_active = false;
         auto first_convex = screen_stage->convexes[0].points;
         auto second_convex = screen_stage->convexes[1].points;
-        srand(time(0));
-        Point first_point = first_convex[rand() % first_convex.size()];
-        Point second_point = second_convex[rand() % second_convex.size()];
+        srandom(time(nullptr));
+        Point first_point = first_convex[random() % first_convex.size()];
+        Point second_point = second_convex[random() % second_convex.size()];
         double k = helping_function::pifagor(first_point, second_point);
         Point speed = { 2 * (second_point.x - first_point.x) / k, 2 * (second_point.y - first_point.y) / k};
         screen_stage->convexes[0].speed = speed;
         for(object* points: screen_stage->convexes_points[0])
             points->speed = speed;
+        return true;
     }
     bool add_button_pressed(main_menu* screen_stage)
     {

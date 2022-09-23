@@ -26,23 +26,15 @@ namespace objects_np
         {
             this->update_texture(texture);
         }
-        bool object_collision(object* some_obj)
-        {
-            if(this->points.empty() || some_obj->points.empty())
-                return false;
-            if(this->convex_points.size() == 0)
-                this->concave_to_convex();
-            if(some_obj->convex_points.size() == 0)
-                some_obj->concave_to_convex();
-            return helping_function::collision(this->convex_points, some_obj->convex_points);
-        }
         virtual bool scale(Window& window) override
         {
-            scale_obj->scale(this->sprite, this->points, window);
+            if(is_active)
+                scale_obj->scale(this->sprite, this->points, window);
         }
         virtual void draw(RenderTarget& target, RenderStates states) const override
         {
-            draw_obj->draw(target, states, this->points, color);
+            if(is_active)
+                draw_obj->draw(target, states, this->points, color);
         }
         virtual void move() override
         {

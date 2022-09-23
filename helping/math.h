@@ -58,7 +58,7 @@ namespace helping_function
     }
     vector<vector<Point>> concave_to_convexes(vector<Point>& figure)
     {
-        int size = figure.size();
+        int size = (int)figure.size();
         bool start_direction = signed_triangle_area(figure[size - 1], figure[0], figure[1]) <= 0;
         for(int i = 0; i < size; i++)
         {
@@ -69,9 +69,9 @@ namespace helping_function
             while(signed_triangle_area(figure[(i - 1 + size) % size], figure[i], figure[j]) > 0)
                 j = (j + 1) % size;
 
-
             if(i < j)
                 swap(i, j);
+
             vector<Point> sub_figure_1, sub_figure_2;
             for(int k = j; k <= i; k++)
                 sub_figure_1.push_back(figure[k]);

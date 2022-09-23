@@ -25,8 +25,8 @@ namespace main_menu_np
         void init_game_objects() override
         {
             convexes = new convex_object[2]{
-                convex_object({}, new coord_scale, new common_draw, new convex_move, Color::Blue),
-                convex_object({}, new coord_scale, new common_draw, new convex_move, Color::Green)};
+                convex_object({}, new coord_scale, new common_draw, new common_move, Color::Blue),
+                convex_object({}, new coord_scale, new common_draw, new common_move, Color::Green)};
             for(int i = 0; i < 2; i++)
                 elements.push_back(&convexes[i]);
         }
@@ -36,9 +36,9 @@ namespace main_menu_np
                 return;
             bool is_collision = convexes[0].object_collision(&convexes[1]);
             if(!is_collision)
-                for(int i = 0; i < convexes_points[0].size(); i++)
-                    for(int j = 0; j < convexes_points[1].size(); j++)
-                        if(convexes_points[0][i]->object_collision(convexes_points[1][j]))
+                for(auto & dot_1 : convexes_points[0])
+                    for(auto & dot_2 : convexes_points[1])
+                        if(dot_1->object_collision(dot_2))
                         {
                             is_collision = true;
                             break;

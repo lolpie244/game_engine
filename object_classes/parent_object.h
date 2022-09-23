@@ -2,6 +2,7 @@
 // Created by lolpie on 11/19/21.
 //
 
+
 namespace objects_np
 {
     using namespace sf;
@@ -11,8 +12,6 @@ namespace objects_np
     protected:
         Sprite sprite;
         shared_ptr<Texture> texture;
-        bool with_texture = false;
-        int depth = 0;
     public:
         vector<structs::Point> points;
         vector<vector<structs::Point>> convex_points;
@@ -32,16 +31,12 @@ namespace objects_np
         {
             return this->sprite;
         }
-        void concave_to_convex()
+        void update_concave_to_convex()
         {
             if(this->points.empty())
                 convex_points = {get_rect()};
             else
                 convex_points = helping_function::concave_to_convexes(points);
-        }
-        bool has_texture()
-        {
-            return with_texture;
         }
         Vector2<float> left_corner_cords()
         {
@@ -80,7 +75,6 @@ namespace objects_np
         }
         void update_texture(sh_p<Texture>& new_texture)
         {
-            this->with_texture = true;
             this->texture = new_texture;
             this->sprite.setTexture(*texture, true);
             this->update_sprite();
