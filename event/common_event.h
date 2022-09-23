@@ -4,7 +4,7 @@
 // Created by lolpie on 11/25/21.
 //
 
-namespace event
+namespace events
 {
     using namespace std;
     template<typename T_obj>
@@ -26,8 +26,8 @@ namespace event
     {
         sh_p<sf::RenderWindow> window;
     public:
-        scale(T_obj* new_obj, sh_p<sf::RenderWindow> new_window):
-            event<T_obj>(new_obj)
+        scale(T_obj* func, sh_p<sf::RenderWindow> new_window):
+            event<T_obj>(func)
         {
             window = new_window;
         }
@@ -44,7 +44,7 @@ namespace event
         template<typename T>
         void add_to_observer(T& observer)
         {
-            observer.bind_event(sf::Event::Resized, [this](sf::Event event){this->do_scale(event);});
+            observer.bind_event(sf::Event::Resized, [this](sf::Event event){this->do_scale(event); return false;});
         }
     };
 }

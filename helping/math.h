@@ -50,16 +50,17 @@ namespace helping_function
     }
     double signed_triangle_area (Point p1, Point p2, Point p3)
     {
-        return ((p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x)) / 2.0;
+        return ((p2.x - p1.x) * (p3.y - p2.y) - (p3.x - p2.x) * (p2.y - p1.y)) / 2.0;
     }
 
-    vector<vector<Point>> concave_to_convexes(const vector<Point>& figure)
+    vector<vector<Point>> concave_to_convexes(vector<Point>& figure)
     {
         int size = figure.size();
+        bool start_direction = signed_triangle_area(figure[size - 1], figure[0], figure[1]) <= 0;
         for(int i = 0; i < size; i++)
         {
             bool direction = signed_triangle_area(figure[(i - 1 + size) % size], figure[i], figure[(i + 1) % size]) <= 0;
-            if(direction)
+            if(direction == start_direction)
                 continue;
             int j = i + 1;
             while(signed_triangle_area(figure[(i - 1 + size) % size], figure[i], figure[j]) > 0)

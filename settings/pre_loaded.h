@@ -26,17 +26,18 @@ namespace pre_loaded
             return texture_;
         }
     };
-    loaded_info<Texture> banner_start_1("textures/game/banner_start_1.png");
-    loaded_info<Texture> background("textures/gui/background.png");
-    loaded_info<Texture> pixel("textures/gui/pixel.png");
-    loaded_info<Texture> red_button("textures/gui/red_button.png");
-    loaded_info<Texture> red_button_pressed("textures/gui/red_button_pressed.png");
-    loaded_info<Texture> play("textures/gui/play.png");
-    loaded_info<Texture> play_pressed("textures/gui/play_pressed.png");
-    loaded_info<Texture> back("textures/gui/back.png");
-    loaded_info<Texture> back_pressed("textures/gui/back_pressed.png");
+    loaded_info<Texture> background("textures/background.jpg");
+    loaded_info<Texture> dot("textures/dot.png");
+    loaded_info<Texture> pixel("textures/pixel.png");
 
-    loaded_info<Font> button_font("textures/fonts/button.ttf");
+    loaded_info<Texture> blue_plus_pressed("textures/blue_plus_pressed.png");
+    loaded_info<Texture> blue_plus_released("textures/blue_plus_released.png");
+    loaded_info<Texture> blue_ok_pressed("textures/blue_ok_pressed.png");
+    loaded_info<Texture> blue_ok_released("textures/blue_ok_released.png");
+    loaded_info<Texture> green_plus_released("textures/green_plus_released.png");
+    loaded_info<Texture> green_plus_pressed("textures/green_plus_pressed.png");
+    loaded_info<Texture> green_ok_pressed("textures/green_ok_pressed.png");
+    loaded_info<Texture> green_ok_released("textures/green_ok_released.png");
 
 
 }

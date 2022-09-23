@@ -25,6 +25,29 @@ namespace structs
             return Point(x + other_cord.x, y + other_cord.y);
         }
 
+        template<typename T1, typename T2>
+        Point operator+(std::pair<T1, T2> other_cord) const
+        {
+            return Point(x + other_cord.first, y + other_cord.second);
+        }
+
+        Point operator*(Point other_cord) const
+        {
+            return Point(x * other_cord.x, y * other_cord.y);
+        }
+        Point operator/(Point other_cord) const
+        {
+            return Point(x / other_cord.x, y / other_cord.y);
+        }
+        Point operator*(double k) const
+        {
+            return Point(x * k, y * k);
+        }
+        template<typename T1, typename T2>
+        Point operator*(std::pair<T1, T2> other_cord) const
+        {
+            return Point(x * other_cord.first, y * other_cord.second);
+        }
         template<typename T_1, typename T_2>
         Point& operator=(std::pair<T_1, T_2> other_point)
         {
