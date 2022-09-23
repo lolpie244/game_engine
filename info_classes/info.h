@@ -39,6 +39,7 @@ namespace info
         events::observer_list event_manager;
         void draw()
         {
+
             for(auto obj: objects)
                 window->draw(*obj);
         }

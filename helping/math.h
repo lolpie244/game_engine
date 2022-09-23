@@ -52,7 +52,10 @@ namespace helping_function
     {
         return ((p2.x - p1.x) * (p3.y - p2.y) - (p3.x - p2.x) * (p2.y - p1.y)) / 2.0;
     }
-
+    double pifagor(Point p1, Point p2)
+    {
+        return sqrt((p2.x - p1.x)*(p2.x - p1.x) + (p2.y - p1.y)*(p2.y - p1.y));
+    }
     vector<vector<Point>> concave_to_convexes(vector<Point>& figure)
     {
         int size = figure.size();

@@ -32,6 +32,13 @@ namespace parent_stage_class
             render = info::get_info<info::render>(main_info, "render");
             elements = info::stage_elements(window);
         }
+        virtual void reset_stage()
+        {
+            elements = info::stage_elements(window);
+            init_gui_objects();
+            init_game_objects();
+            init_event_objects();
+        }
         virtual void main()
         {
             init_gui_objects();

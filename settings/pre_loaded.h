@@ -39,5 +39,7 @@ namespace pre_loaded
     loaded_info<Texture> green_ok_pressed("textures/green_ok_pressed.png");
     loaded_info<Texture> green_ok_released("textures/green_ok_released.png");
 
+    loaded_info<Texture> restart("textures/restart.png");
+
 
 }

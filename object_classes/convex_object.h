@@ -28,7 +28,7 @@ namespace objects_np
         }
         bool object_collision(object* some_obj)
         {
-            if(this->points.empty() || some_obj->points.empty() || !this->is_active || !some_obj->is_active)
+            if(this->points.empty() || some_obj->points.empty())
                 return false;
             if(this->convex_points.size() == 0)
                 this->concave_to_convex();

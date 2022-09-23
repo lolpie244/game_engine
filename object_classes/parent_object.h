@@ -34,7 +34,10 @@ namespace objects_np
         }
         void concave_to_convex()
         {
-            convex_points = helping_function::concave_to_convexes(points);
+            if(this->points.empty())
+                convex_points = {get_rect()};
+            else
+                convex_points = helping_function::concave_to_convexes(points);
         }
         bool has_texture()
         {
@@ -45,7 +48,17 @@ namespace objects_np
             sf::Vector2<float> a(this->sprite.getGlobalBounds().left, this->sprite.getGlobalBounds().top);
             return a;
         }
-
+        vector<structs::Point> get_rect()
+        {
+            auto pos = this->get_position();
+            auto size = this->get_size();
+            return {
+                {pos.x, pos.y},
+                {pos.x + size.x, pos.y},
+                {pos.x + size.x, pos.y + size.y},
+                {pos.x, pos.y + size.y},
+            };
+        }
         Vector2<float> get_position()
         {
             return this->sprite.getPosition();

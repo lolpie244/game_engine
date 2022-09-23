@@ -12,7 +12,7 @@ namespace main_menu_np
     {
         Point mouse = get_scaled_mouse_position(*screen_stage->window);
         screen_stage->convexes[screen_stage->current_convex].points.push_back(get_mouse_position(*screen_stage->window));
-        auto point = new object(pre_loaded::dot.get(), Rect<float>(mouse.x, mouse.y, 0.01, 0.01),
+        auto point = new object(pre_loaded::dot.get(), Rect<float>(mouse.x, mouse.y, 0.5, 0.5),
                                 new full_scale, new common_draw, new common_move);
         screen_stage->elements.push_back(point);
         screen_stage->convexes_points[screen_stage->current_convex].push_back(point);
@@ -40,9 +40,8 @@ namespace main_menu_np
         srand(time(0));
         Point first_point = first_convex[rand() % first_convex.size()];
         Point second_point = second_convex[rand() % second_convex.size()];
-        auto k_c= helping_function::straight_line_equation(first_point, second_point);
-        Point speed = {2 * (k_c.first < 0?-1:1), 2 * (k_c.second < 0?-1:1)};
-
+        double k = helping_function::pifagor(first_point, second_point);
+        Point speed = { 2 * (second_point.x - first_point.x) / k, 2 * (second_point.y - first_point.y) / k};
         screen_stage->convexes[0].speed = speed;
         for(object* points: screen_stage->convexes_points[0])
             points->speed = speed;

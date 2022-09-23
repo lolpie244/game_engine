@@ -34,15 +34,33 @@ namespace main_menu_np
         {
             if(current_convex != 2)
                 return;
-            if(convexes[0].object_collision(&convexes[1]))
+            bool is_collision = convexes[0].object_collision(&convexes[1]);
+            if(!is_collision)
+                for(int i = 0; i < convexes_points[0].size(); i++)
+                    for(int j = 0; j < convexes_points[1].size(); j++)
+                        if(convexes_points[0][i]->object_collision(convexes_points[1][j]))
+                        {
+                            is_collision = true;
+                            break;
+                        }
+
+            if(is_collision)
             {
                 current_convex = 3;
                 for(auto obj: this->elements.objects)
                     obj->speed = {0, 0};
                 convexes[0].color = Color::Green;
+                main_button.set_textures(pre_loaded::restart.get(), pre_loaded::restart.get());
+                main_button.is_active = true;
+                new button_event(&main_button, [this]()
+                {
+                    current_convex = 0;
+                    convexes_points[0].clear();
+                    convexes_points[1].clear();
+                    this->reset_stage();
+                }, [](){}, elements.event_manager);
                 return;
             }
-//            convexes[0].move();
         }
 
     public:
