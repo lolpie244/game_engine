@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(racing)
+project(game_engine)
 
 set(CMAKE_CXX_STANDARD 20)
 ## In most cases better set in the CMake cache
