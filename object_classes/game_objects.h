@@ -3,7 +3,7 @@
 //
 
 
-namespace objects
+namespace objects_np
 {
     class game_objects : public object
     {

@@ -2,15 +2,16 @@
 // Created by lolpie on 11/19/21.
 //
 
-namespace objects
+namespace objects_np
 {
     class gui_objects : public object
     {
     public:
         gui_objects()= default;
-        template<typename T, typename P>
-        gui_objects(shared_ptr<Texture>& new_texture, Rect<float> rect, T* scale, P* draw):
-                object(new_texture, rect, scale, draw){}
+
+        template<typename ScaleT, typename DrawT, typename MoveT>
+        gui_objects(shared_ptr<Texture>& new_texture, Rect<float> rect, ScaleT* scale, DrawT* draw, MoveT* move):
+                object(new_texture, rect, scale, draw, move){}
 
     };
     class text_object : public parent_object
@@ -45,13 +46,22 @@ namespace objects
         sh_p<sf::Texture> unpressed_texture;
     public:
         button(){}
-        template<typename T, typename P>
-        button(shared_ptr<Texture>& new_texture, shared_ptr<Texture>& new_pressed_texture, Rect<float> rect,
-                    T* scale, P* draw):
-            gui_objects(new_texture, rect, scale, draw)
+        template<typename ScaleT, typename DrawT, typename MoveT>
+        button(shared_ptr<Texture>& released_texture, shared_ptr<Texture>& pressed_texture, Rect<float> rect,
+               ScaleT* scale, DrawT* draw, MoveT* move):
+            gui_objects(released_texture, rect, scale, draw, move)
+        {
+            this->pressed_texture = pressed_texture;
+            this->unpressed_texture = texture;
+        }
+        void set_textures(shared_ptr<Texture>& new_texture, shared_ptr<Texture>& new_pressed_texture, bool is_pressed=false)
         {
             this->pressed_texture = new_pressed_texture;
-            this->unpressed_texture = texture;
+            this->unpressed_texture = new_texture;
+            if(is_pressed)
+                pressed();
+            else
+                unpressed();
         }
         void pressed()
         {

@@ -6,9 +6,20 @@ namespace helping_function
 {
     using namespace std;
 
-    sf::Vector2<float> get_window_scale(sf::Window &window)
+    Point get_window_scale(sf::Window &window)
     {
         auto size = window.getSize();
-        return sf::Vector2<float>(size.x / 1920.0, size.y / 1080.0);
+        return {size.x / 1920.0, size.y / 1080.0};
+    }
+    Point get_mouse_position(sf::Window &window)
+    {
+        auto local_mouse = sf::Mouse::getPosition(window);
+        return {local_mouse.x, local_mouse.y};
+    }
+    Point get_scaled_mouse_position(sf::Window &window)
+    {
+        auto local_mouse = sf::Mouse::getPosition(window);
+        Point scale = get_window_scale(window);
+        return {local_mouse.x / scale.x, local_mouse.y / scale.y};
     }
 }

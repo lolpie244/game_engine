@@ -18,22 +18,54 @@ namespace info
     public:
         sh_p<RenderWindow> window;
         chrono::system_clock::time_point time_point;
-        event::observer_list event_manager;
+        events::observer_list event_manager;
         render(sh_p<RenderWindow> new_window)
         {
             window = new_window;
             time_point = std::chrono::system_clock::now();
         }
     };
-    class gui : public parent
+
+    class stage_elements : public parent
     {
+        sh_p<RenderWindow> window;
     public:
-        vector<objects::gui_objects*> objects;
-        event::observer_list event_manager;
-        void draw(sf::RenderWindow& window)
+        vector<objects_np::object*> objects;
+        stage_elements(sh_p<RenderWindow> window)
         {
+            this->window = window;
+        }
+        stage_elements(){}
+        events::observer_list event_manager;
+        void draw()
+        {
+
             for(auto obj: objects)
-                window.draw(*obj);
+                window->draw(*obj);
+        }
+        void move()
+        {
+            for(auto obj : objects)
+                obj->move();
+        }
+        void push_back(objects_np::object* obj, bool with_scale=true)
+        {
+            objects.push_back(obj);
+            if(with_scale)
+            {
+                obj->scale(*window);
+                new events::scale(obj, window, event_manager);
+            }
+        }
+        void insert(initializer_list<objects_np::object*> obj, bool with_scale=true)
+        {
+            objects.insert(objects.end(), obj);
+            if(with_scale)
+                for(auto i : obj)
+                {
+                    i->scale(*window);
+                    new events::scale(i, window, event_manager);
+                }
         }
     };
 }

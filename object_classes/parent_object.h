@@ -2,16 +2,20 @@
 // Created by lolpie on 11/19/21.
 //
 
-namespace objects
+
+namespace objects_np
 {
     using namespace sf;
     using namespace std;
-    class parent_object
+    class parent_object: public Drawable
     {
     protected:
         Sprite sprite;
         shared_ptr<Texture> texture;
     public:
+        vector<structs::Point> points;
+        vector<vector<structs::Point>> convex_points;
+        bool is_active = true;
         void update_sprite()
         {
             auto size = this->get_local_size();
@@ -27,13 +31,29 @@ namespace objects
         {
             return this->sprite;
         }
-
+        void update_concave_to_convex()
+        {
+            if(this->points.empty())
+                convex_points = {get_rect()};
+            else
+                convex_points = helping_function::concave_to_convexes(points);
+        }
         Vector2<float> left_corner_cords()
         {
             sf::Vector2<float> a(this->sprite.getGlobalBounds().left, this->sprite.getGlobalBounds().top);
             return a;
         }
-
+        vector<structs::Point> get_rect()
+        {
+            auto pos = this->get_position();
+            auto size = this->get_size();
+            return {
+                {pos.x, pos.y},
+                {pos.x + size.x, pos.y},
+                {pos.x + size.x, pos.y + size.y},
+                {pos.x, pos.y + size.y},
+            };
+        }
         Vector2<float> get_position()
         {
             return this->sprite.getPosition();
@@ -59,5 +79,6 @@ namespace objects
             this->sprite.setTexture(*texture, true);
             this->update_sprite();
         }
+
     };
 }
