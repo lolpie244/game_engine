@@ -6,13 +6,15 @@ namespace structs
 {
     struct Point
     {
-        double x{};
-        double y{};
+        double x;
+        double y;
+        double z;
 
-        explicit Point(double x=0, double y=0)
+        explicit Point(double x=0, double y=0, double z=0)
         {
             this->x = x;
             this->y = y;
+            this->z = z;
         }
 
         template<typename T>
@@ -22,26 +24,34 @@ namespace structs
         }
         Point operator+(Point other_cord) const
         {
-            return Point(x + other_cord.x, y + other_cord.y);
+            return Point(x + other_cord.x, y + other_cord.y, z + other_cord.z);
         }
 
         template<typename T1, typename T2>
         Point operator+(std::pair<T1, T2> other_cord) const
         {
-            return Point(x + other_cord.first, y + other_cord.second);
+            return Point(x + other_cord.first, y + other_cord.second, z);
         }
 
         Point operator*(Point other_cord) const
         {
-            return Point(x * other_cord.x, y * other_cord.y);
+            return Point(x * other_cord.x, y * other_cord.y, z + other_cord.z);
         }
         Point operator/(Point other_cord) const
         {
-            return Point(x / other_cord.x, y / other_cord.y);
+            return Point(
+                    x / (other_cord.x != 0? other_cord.x: 1),
+                    y / (other_cord.y != 0? other_cord.y: 1),
+                    z / (other_cord.z != 0? other_cord.z: 1)
+                        );
         }
         Point operator*(double k) const
         {
-            return Point(x * k, y * k);
+            return Point(x * k, y * k, z * k);
+        }
+        Point operator/(double k) const
+        {
+            return Point(x / k, y / k, z / k);
         }
         template<typename T1, typename T2>
         Point operator*(std::pair<T1, T2> other_cord) const
@@ -60,24 +70,20 @@ namespace structs
         Point& operator=(std::initializer_list<T> other_point)
         {
             bool flag = false;
+            double* cords[3] = {&x, &y, &z};
+            int k = 0;
             for(auto val : other_point)
-                if(!flag)
-                {
-                    this->x = val;
-                    flag = true;
-                }
-                else
-                {
-                    this->y = val;
+                if(k == 3)
                     break;
-                }
+                else
+                    *cords[k++] = val;
             return *this;
         }
         friend std::ostream& operator<< (std::ostream &out, const Point &point);
     };
     std::ostream& operator<< (std::ostream &out, const Point &point)
     {
-        out << "x = " << point.x << "; y = " << point.y;
+        out << "x = " << point.x << "; y = " << point.y << "; z = " << point.z;
         return out;
     }
 }

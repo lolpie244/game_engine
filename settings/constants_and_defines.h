@@ -2,7 +2,7 @@
 // Created by lolpie on 26.06.22.
 //
 
-#define sh_p shared_ptr
+#define sh_p std::shared_ptr
 
 namespace constants
 {

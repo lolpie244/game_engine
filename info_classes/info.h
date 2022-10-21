@@ -6,6 +6,7 @@ namespace info
 {
     using namespace sf;
     using namespace std;
+    using objects::mixins::Drawable, objects::mixins::Scalable;
 
     template <typename T, typename Map, typename Field>
     sh_p<T> get_info(Map& container, const Field& field)
@@ -28,9 +29,21 @@ namespace info
 
     class stage_elements : public parent
     {
+        struct DepthCompare
+        {
+            bool operator()(const objects::parent::object* first, const objects::parent::object* second) const
+            {
+                if(first->get_position().z != second->get_position().z)
+                    return first->get_position().z < second->get_position().z;
+                return first < second;
+            }
+        };
+
+
         sh_p<RenderWindow> window;
+        set<Drawable*, DepthCompare> objects;
     public:
-        vector<objects_np::object*> objects;
+
         stage_elements(sh_p<RenderWindow> window)
         {
             this->window = window;
@@ -39,33 +52,54 @@ namespace info
         events::observer_list event_manager;
         void draw()
         {
-
             for(auto obj: objects)
                 window->draw(*obj);
         }
-        void move()
+
+        void push_back(objects::parent::object* obj, bool with_scale=true)
         {
-            for(auto obj : objects)
-                obj->move();
-        }
-        void push_back(objects_np::object* obj, bool with_scale=true)
-        {
-            objects.push_back(obj);
+            auto draw_casted = dynamic_cast<Drawable*>(obj);
+
+            if(draw_casted)
+                objects.insert(draw_casted);
             if(with_scale)
             {
-                obj->scale(*window);
-                new events::scale(obj, window, event_manager);
+                auto scale_casted = dynamic_cast<Scalable*>(obj);
+                if(scale_casted)
+                {
+                    scale_casted->scale(*window);
+                    new events::scale(scale_casted, window, event_manager);
+                }
             }
         }
-        void insert(initializer_list<objects_np::object*> obj, bool with_scale=true)
+        void insert(initializer_list<objects::parent::object*> obj, bool with_scale=true)
         {
-            objects.insert(objects.end(), obj);
+
+            for(auto to_add: obj)
+            {
+                auto draw_casted = dynamic_cast<Drawable*>(to_add);
+                if (draw_casted)
+                    objects.insert(draw_casted);
+            }
             if(with_scale)
                 for(auto i : obj)
                 {
-                    i->scale(*window);
-                    new events::scale(i, window, event_manager);
+                    auto scale_casted = dynamic_cast<Scalable*>(i);
+                    if(scale_casted)
+                    {
+                        scale_casted->scale(*window);
+                        new events::scale(scale_casted, window, event_manager);
+                    }
                 }
+        }
+        void remove_object(objects::parent::object* obj)
+        {
+            for(auto& event: obj->Events)
+                event_manager.remove_event(event.first, obj);
+
+            auto to_erase = dynamic_cast<Drawable*>(obj);
+            if(to_erase)
+                objects.erase(to_erase);
         }
     };
 }

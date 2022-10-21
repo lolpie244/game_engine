@@ -6,7 +6,6 @@ namespace parent_stage_class
 {
     using namespace std;
     using namespace sf;
-    using namespace objects_np;
 
     class parent_stage
     {
@@ -56,7 +55,6 @@ namespace parent_stage_class
                     elements.event_manager.notify(event);
                 }
                 after_events();
-                elements.move();
                 window->clear();
                 elements.draw();
                 window->display();

@@ -28,7 +28,7 @@ namespace events
         {
             auto obj = this->obj;
 
-            return obj->button_click(sf::Vector2<float>(sfml_event.mouseButton.x, sfml_event.mouseButton.y));
+            return obj->mouse_click_collision(sf::Vector2<float>(sfml_event.mouseButton.x, sfml_event.mouseButton.y));
         }
         bool press(sf::Event sfml_event)
         {
@@ -39,7 +39,7 @@ namespace events
             }
             try
             {
-                auto object = dynamic_cast<objects_np::button *>(this->obj);
+                auto object = dynamic_cast<objects::gui::button *>(this->obj);
                 if (object)
                     object->pressed();
             }
@@ -52,7 +52,7 @@ namespace events
         {
             try
             {
-                auto object = dynamic_cast<objects_np::button *>(this->obj);
+                auto object = dynamic_cast<objects::gui::button *>(this->obj);
                 if (object)
                     object->unpressed();
             }

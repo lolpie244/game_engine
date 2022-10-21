@@ -5,6 +5,7 @@
 namespace events
 {
     using namespace std;
+    using objects::parent::object;
     class observer_list
     {
         class observer_object
@@ -17,12 +18,17 @@ namespace events
             struct func_struct : parent_func
             {
                 shared_ptr<T> func;
-                func_struct(sh_p<T> new_func)
+                object* obj;
+
+                func_struct(sh_p<T> new_func, object* new_obj = nullptr)
                 {
                     func = new_func;
+                    obj = new_obj;
                 }
                 bool run(sf::Event sfml_event)
                 {
+                    if(obj != nullptr && !obj->is_active)
+                        return false;
                     return (*func)(sfml_event);
                 }
             };
@@ -55,7 +61,7 @@ namespace events
             list_[event.type].notify(event);
         }
         template<typename T_temp_func, typename T_func=function<bool(sf::Event)>>
-        void bind_event(int event, T_temp_func new_func, objects_np::object* obj = nullptr)
+        void bind_event(int event, T_temp_func new_func, object* obj = nullptr)
         {
             auto temp_func = new T_func(new_func);
             int id = -1;
@@ -67,15 +73,11 @@ namespace events
 
             list_[event].add_func(shared_ptr<T_func>(temp_func), id);
         }
-        void remove_event(int event, int id)
-        {
-            list_[event].func_list.erase(list_[event].func_list.begin() + id);
-        }
-        void remove_event(int event, objects_np::object* obj)
+        void remove_event(int event, object* obj)
         {
             if(!obj->Events.contains(event))
                 return;
-            int event_id = obj->Events[event];
+
             list_[event].func_list.erase(list_[event].func_list.begin() + event);
             obj->Events.erase(event);
         }
