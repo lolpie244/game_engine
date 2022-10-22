@@ -74,11 +74,6 @@ namespace gui
         {
             return {&picker_segment_points.first, &picker_segment_points.second};
         }
-        void scale(sf::Window& window) override
-        {
-            ScalableComposite::scale(window);
-            update_picker_cord();
-        }
         double get_value()
         {
             return value;
@@ -89,22 +84,36 @@ namespace gui
             update_picker_cord();
         }
 
-        Slider()=default;
+        Slider()
+        {
+            set_after_scale([this](sf::Event event){
+                this->update_picker_cord();
+                return false;
+            });
+        }
         Slider(Point position, Point slider_size, sh_p<texture::slider> new_texture)
         {
+            Slider();
+
             picker_texture = new_texture;
             slider = Base(position, slider_size, new_texture->get_slider());
             picker = Picker(
                     {0, 0},
                     Point(picker_texture->get_picker()->get_texture()->getSize()) * slider.get_texture_scale(),
                     picker_texture->get_picker());
+
             update_slider_texture(new_texture);
+            Point picker_position = picker_segment_points.first;
+            picker_position.z = slider.get_position().z + 0.1;
+
+            picker.set_position(picker_position);
         }
         void update_slider_texture(sh_p<texture::slider> new_texture)
         {
             picker_texture = new_texture;
             picker.update_texture(new_texture->get_picker());
             slider.update_texture(new_texture->get_slider());
+
             auto slider_point = &slider;
             auto lam = [slider_point](Point point){
                 return (slider_point->get_left_corner() + point * slider_point->get_texture_scale());
@@ -112,11 +121,7 @@ namespace gui
             picker_segment_points = {
                     lam(picker_texture->get_picker_segment().first), lam(picker_texture->get_picker_segment().second)
             };
-
-            Point picker_position = picker_segment_points.first;
-            picker_position.z = slider.get_position().z + 0.1;
-
-            picker.set_position(picker_position);
+            update_picker_cord();
         }
         void bind_slider(event_function_type function, observer_list& observer)
         {
