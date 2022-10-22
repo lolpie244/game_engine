@@ -32,9 +32,21 @@ namespace main_menu_np
     void main_menu::init_event_objects()
     {
         start_button.bind_scale<objects::mixins::full_scale_2d>(window, elements.event_manager);
+        slider.bind_scale<objects::mixins::full_scale_2d, objects::mixins::coord_scale_2d_composite>(window, elements.event_manager);
+
+
         start_button.bind_press([](sf::Event event){return true;}, elements.event_manager);
         background.bind_press([this](sf::Event event) { return construct_convex_press(event, this); },
                               elements.event_manager);
+        slider.bind_slider([this](sf::Event event) {
+            std::cout << this->slider.get_value() << '\n';
+            return true;
+        }, elements.event_manager);
+
+        drag_test.bind_drag([this](sf::Event event){
+            this->drag_test.set_position(this->drag_test.get_position() + this->drag_test.get_moved_to());
+            return true;
+            }, elements.event_manager);
     }
 
 }

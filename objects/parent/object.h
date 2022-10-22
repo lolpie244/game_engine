@@ -8,7 +8,7 @@ namespace objects::parent
     using sf::Texture, sf::Sprite;
     using std::vector, std::initializer_list, std::min, std::max, std::unordered_map;
 
-    class object
+    class object: public abstract_object
     {
     protected:
         Sprite sprite;
@@ -16,7 +16,7 @@ namespace objects::parent
         structs::Point position;
         structs::Point size;
     public:
-        bool is_active = true;
+
         object() = default;
 
         vector <structs::Point> points;
@@ -47,7 +47,10 @@ namespace objects::parent
             if(resize)
                 set_size(old_texture_size - new_texture_size + size);
         }
-
+        void move(Point move_to)
+        {
+            set_position(position + move_to);
+        }
         Sprite get_const_sprite() const
         {
             return this->sprite;
@@ -70,7 +73,10 @@ namespace objects::parent
         {
             return this->sprite;
         }
-
+        Point get_texture_scale()
+        {
+            return size / get_texture()->getSize();
+        }
         Point get_position() const
         {
             return this->position;
@@ -87,6 +93,10 @@ namespace objects::parent
             auto texture_points = texture->get_points();
             for(int i = 0; i < points.size(); i++)
                 points[i] = texture_points[i] + left_corner;
+        }
+        void set_x_position(double x)
+        {
+            set_position({x, position.y, position.z});
         }
         Point get_size()
         {

@@ -48,4 +48,18 @@ namespace mixins
             old_scale = size;
         }
     };
+    class coord_scale_2d_composite : virtual public none_scale_composite
+    {
+    public:
+        void scale(Window& window, ScalableComposite* obj) override
+        {
+            auto size = get_window_scale(window);
+
+            Point position_scale = {size.x / old_scale.x, size.y / old_scale.y};
+
+            for(Point* point: obj->get_points_to_scale())
+                *point = *point * position_scale;
+            old_scale = size;
+        }
+    };
 }

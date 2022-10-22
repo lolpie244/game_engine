@@ -69,6 +69,11 @@ namespace info
         }
         void insert(initializer_list<objects::parent::object*> obj)
         {
+            list<objects::parent::object*> obj_list = obj;
+            insert(obj_list);
+        }
+        void insert(list<objects::parent::object*> obj)
+        {
             for(auto to_add: obj)
             {
                 auto draw_casted = dynamic_cast<Drawable*>(to_add);

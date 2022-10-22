@@ -28,9 +28,10 @@ namespace mixins
         }
         virtual bool release(sf::Event sfml_event)
         {
-            if(!is_pressed || !is_mouse_in({sfml_event.mouseButton.x, sfml_event.mouseButton.y}))
-                return false;
+            auto old_is_pressed = is_pressed;
             is_pressed = false;
+            if(!old_is_pressed || !is_mouse_in({sfml_event.mouseButton.x, sfml_event.mouseButton.y}))
+                return false;
             return release_function(sfml_event);
 
         }

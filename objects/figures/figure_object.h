@@ -5,11 +5,11 @@
 
 namespace figures
 {
-    using mixins::Clickable, mixins::Scalable, mixins::Drawable, mixins::Movable;
+    using mixins::Clickable, mixins::Scalable, mixins::Drawable;
     using sf::Texture, std::initializer_list, helping_function::Point;
     using parent::object_constructor;
 
-    class figure_object: public object_constructor, public Clickable, public Scalable, public Drawable, public Movable
+    class figure_object: public object_constructor, public Clickable, public Scalable, public Drawable
     {
     public:
         figure_object()= default;
