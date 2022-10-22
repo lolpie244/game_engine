@@ -2,7 +2,7 @@
 // Created by lolpie on 10/20/22.
 //
 
-namespace parent
+namespace objects::parent
 {
     using namespace structs;
     using sf::Texture, sf::Sprite;
@@ -12,68 +12,59 @@ namespace parent
     {
     protected:
         Sprite sprite;
-        sh_p<Texture> texture;
+        sh_p<texture::common_texture> texture;
         structs::Point position;
-        structs::Point scale = {1, 1, 1};
-        structs::Point left_up;
-        structs::Point right_down;
+        structs::Point size;
     public:
-        unordered_map<int, int> Events;
         bool is_active = true;
-        object(){}
-
-        object(initializer_list<Point> points, Point center, sh_p<Texture>& texture)
-        {
-            this->points = points;
-            update_points();
-            update_texture(texture);
-            set_position(center);
-            std::cout << sprite.getPosition().x << ' ' << sprite.getPosition().y << '\n';
-        }
+        object() = default;
 
         vector <structs::Point> points;
 
-
         sh_p<Texture> get_texture()
         {
-            return this->texture;
+            return this->texture->get_texture();
         }
-        void update_sprite()
+
+        void update_texture(sh_p<texture::common_texture> new_texture, bool resize = true)
         {
-            if(points.empty())
+
+            if(texture == nullptr)
+            {
+                texture = std::move(new_texture);
+                if(size == Point({0, 0, 0}))
+                    size = texture->get_texture()->getSize();
+                this->sprite.setTexture(*texture->get_texture(), true);
                 return;
-            auto texture_size = texture->getSize();
-            Point sprite_scale = {(right_down.x - left_up.x) / texture_size.x * scale.x,
-                                 (right_down.y - left_up.y) / texture_size.y * scale.y};
+            }
 
-            sprite.setScale(sprite_scale.x, sprite_scale.y);
+            Point old_texture_size = texture->get_texture()->getSize();
+            texture = new_texture;
+            Point new_texture_size = texture->get_texture()->getSize();
 
-            sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
+            this->sprite.setTexture(*texture->get_texture(), resize);
 
-        }
-
-        void update_texture(sh_p <Texture> &new_texture)
-        {
-            this->texture = new_texture;
-            this->sprite.setTexture(*texture);
-            update_sprite();
+            if(resize)
+                set_size(old_texture_size - new_texture_size + size);
         }
 
         Sprite get_const_sprite() const
         {
             return this->sprite;
         }
-        void update_points()
+        void set_size(Point new_size)
         {
-            if(points.empty())
-                return;
-            left_up = points[0];
-            right_down = points[0];
-            for(const auto& point: points)
-            {
-                left_up = {min(left_up.x, point.x), min(left_up.y, point.y)};
-                right_down = {max(right_down.x, point.x), max(right_down.y, point.y)};
-            }
+            Point old_scale = size / get_texture()->getSize();
+            Point new_scale = new_size / get_texture()->getSize();
+            size = new_size;
+
+            for(auto& point: points)
+                point = (point / old_scale) * new_scale;
+            Point sprite_scale = Point({sprite.getScale().x, sprite.getScale().y}) / old_scale * new_scale;
+
+            sprite.setScale(sprite_scale.x , sprite_scale.y);
+            Point sprite_origin = Point(texture->get_texture()->getSize()) / 2;
+            this->sprite.setOrigin(sprite_origin.x, sprite_origin.y);
         }
         Sprite& get_sprite()
         {
@@ -84,20 +75,35 @@ namespace parent
         {
             return this->position;
         }
+        Point get_left_corner() const
+        {
+            return position - size / 2;
+        }
         void set_position(Point new_point)
         {
             position = new_point;
             this->sprite.setPosition(position.x, position.y);
+            Point left_corner = get_left_corner();
+            auto texture_points = texture->get_points();
+            for(int i = 0; i < points.size(); i++)
+                points[i] = texture_points[i] + left_corner;
         }
-        Point get_scale()
+        Point get_size()
         {
-            return scale;
+            return size;
         }
-        Point rect_size()
-        {
-            return right_down - left_up;
-        }
-        virtual ~object() {}
+        virtual ~object(){}
     };
+    class object_constructor: virtual public object
+    {
+    public:
+        object_constructor(){}
 
+        object_constructor(Point position, Point size, sh_p<texture::common_texture> texture)
+        {
+            update_texture(std::move(texture));
+            set_size(size);
+            set_position(position);
+        }
+    };
 }

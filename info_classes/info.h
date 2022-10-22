@@ -56,46 +56,35 @@ namespace info
                 window->draw(*obj);
         }
 
-        void push_back(objects::parent::object* obj, bool with_scale=true)
+        void push_back(objects::parent::object* obj)
         {
             auto draw_casted = dynamic_cast<Drawable*>(obj);
 
             if(draw_casted)
                 objects.insert(draw_casted);
-            if(with_scale)
-            {
-                auto scale_casted = dynamic_cast<Scalable*>(obj);
-                if(scale_casted)
-                {
-                    scale_casted->scale(*window);
-                    new events::scale(scale_casted, window, event_manager);
-                }
-            }
-        }
-        void insert(initializer_list<objects::parent::object*> obj, bool with_scale=true)
-        {
 
+            auto scale_casted = dynamic_cast<Scalable*>(obj);
+            if(scale_casted)
+                scale_casted->bind_scale(window, event_manager);
+        }
+        void insert(initializer_list<objects::parent::object*> obj)
+        {
             for(auto to_add: obj)
             {
                 auto draw_casted = dynamic_cast<Drawable*>(to_add);
                 if (draw_casted)
                     objects.insert(draw_casted);
             }
-            if(with_scale)
-                for(auto i : obj)
-                {
-                    auto scale_casted = dynamic_cast<Scalable*>(i);
-                    if(scale_casted)
-                    {
-                        scale_casted->scale(*window);
-                        new events::scale(scale_casted, window, event_manager);
-                    }
-                }
+            for(auto i : obj)
+            {
+                auto scale_casted = dynamic_cast<Scalable*>(i);
+                if(scale_casted)
+                    scale_casted->bind_scale(window, event_manager);
+            }
         }
         void remove_object(objects::parent::object* obj)
         {
-            for(auto& event: obj->Events)
-                event_manager.remove_event(event.first, obj);
+            event_manager.unbind_all(obj);
 
             auto to_erase = dynamic_cast<Drawable*>(obj);
             if(to_erase)

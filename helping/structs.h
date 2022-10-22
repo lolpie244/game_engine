@@ -6,9 +6,9 @@ namespace structs
 {
     struct Point
     {
-        double x;
-        double y;
-        double z;
+        double x=0;
+        double y=0;
+        double z=0;
 
         explicit Point(double x=0, double y=0, double z=0)
         {
@@ -22,9 +22,23 @@ namespace structs
         {
             *this = point_cords;
         }
+        template<typename T>
+        Point(sf::Vector2<T> point_cords)
+        {
+            *this = point_cords;
+        }
+        template<typename T>
+        Point(sf::Vector3<T> point_cords)
+        {
+            *this = point_cords;
+        }
         Point operator+(Point other_cord) const
         {
             return Point(x + other_cord.x, y + other_cord.y, z + other_cord.z);
+        }
+        Point operator-(Point other_cord) const
+        {
+            return Point(x - other_cord.x, y - other_cord.y, z - other_cord.z);
         }
 
         template<typename T1, typename T2>
@@ -53,6 +67,10 @@ namespace structs
         {
             return Point(x / k, y / k, z / k);
         }
+        bool operator==(Point other) const
+        {
+            return x == other.x && y == other.y && z == other.z;
+        }
         template<typename T1, typename T2>
         Point operator*(std::pair<T1, T2> other_cord) const
         {
@@ -63,6 +81,22 @@ namespace structs
         {
             this->x = other_point.first;
             this->y = other_point.second;
+            return *this;
+        }
+
+        template<typename T>
+        Point& operator=(sf::Vector2<T> other_point)
+        {
+            this->x = other_point.x;
+            this->y = other_point.y;
+            return *this;
+        }
+        template<typename T>
+        Point& operator=(sf::Vector3<T> other_point)
+        {
+            this->x = other_point.x;
+            this->y = other_point.y;
+            this->z = other_point.z;
             return *this;
         }
 

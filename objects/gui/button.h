@@ -4,35 +4,43 @@
 
 namespace gui
 {
+    using events::observer_list;
     class button : public gui_object
     {
-        sh_p<sf::Texture> pressed_texture;
-        sh_p<sf::Texture> released_texture;
+        sh_p<texture::button> button_texture;
+    protected:
+        bool release(sf::Event sfml_event) override
+        {
+            if(is_pressed)
+                update_texture(button_texture->get_released());
+            return Clickable::release(sfml_event);
+        }
     public:
         button(){}
-        button(initializer_list<Point> points, Point position,
-               sh_p<Texture>& released_texture, sh_p<Texture>& pressed_texture):
-                gui_object(points, position, released_texture)
+        button(Point position, Point size, sh_p<texture::button> texture):
+                gui_object(position, size, texture->get_released())
         {
-            this->pressed_texture = pressed_texture;
-            this->released_texture = released_texture;
+            this->button_texture = texture;
         }
-        void set_textures(sh_p<Texture>& new_released_texture, sh_p<Texture>& new_pressed_texture, bool is_pressed=false)
+        void set_button_texture(sh_p<texture::button> new_texture, bool is_pressed=false)
         {
-            this->pressed_texture = new_pressed_texture;
-            this->released_texture = new_released_texture;
+            this->button_texture = new_texture;
+
             if(is_pressed)
-                pressed();
+                update_texture(button_texture->get_pressed());
             else
-                unpressed();
+                update_texture(button_texture->get_released());
         }
-        void pressed()
+        int bind_press(event_function_type function, observer_list& observer) override
         {
-            update_texture(pressed_texture);
+            auto new_function = [this, function](sf::Event event){
+                update_texture(button_texture->get_pressed());
+                return function(event);
+            };
+            if(!release_function)
+                Clickable::bind_release([](sf::Event event){ return false;}, observer);
+            return Clickable::bind_press(new_function, observer);
         }
-        void unpressed()
-        {
-            update_texture(released_texture);
-        }
+
     };
 }

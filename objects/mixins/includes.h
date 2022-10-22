@@ -5,4 +5,6 @@
 #include "drawable.h"
 #include "movable.h"
 #include "clickable.h"
-#include "scalable.h"
+
+#include "scalable/class.h"
+#include "scalable/methods.h"

@@ -13,16 +13,28 @@ namespace main_menu_np
     bool construct_convex_press(sf::Event event, main_menu* screen_stage)
     {
         Point mouse = get_scaled_mouse_position(*screen_stage->window);
-        auto point = new objects::figures::figure_object({{0, 0}, {10, 0}, {10, 100}, {0, 10}}, {mouse.x, mouse.y, 1.0}, pre_loaded::dot.get());
-        point->set_scale(new objects::mixins::full_scale_2d);
-        screen_stage->elements.push_back(point);
+        sh_p<objects::figures::figure_object> point(
+                new objects::figures::figure_object({mouse.x, mouse.y, 1.1}, {100, 100}, textures::dot));
+
+        screen_stage->points.push_back(point);
+
+        point->set_scale<objects::mixins::full_scale_2d>();
+
+        screen_stage->elements.push_back(point.get());
+        if(screen_stage->points.size() == 3)
+        {
+            screen_stage->elements.remove_object(screen_stage->points[0].get());
+            screen_stage->points.erase(screen_stage->points.begin());
+        }
         return true;
     }
 
     void main_menu::init_event_objects()
     {
-        elements.event_manager.bind_event(sf::Event::MouseButtonPressed,
-        [this](sf::Event event){return construct_convex_press(event, this);}, &background);
+        start_button.bind_scale<objects::mixins::full_scale_2d>(window, elements.event_manager);
+        start_button.bind_press([](sf::Event event){return true;}, elements.event_manager);
+        background.bind_press([this](sf::Event event) { return construct_convex_press(event, this); },
+                              elements.event_manager);
     }
 
 }

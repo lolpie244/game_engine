@@ -25,9 +25,10 @@ namespace mixins
             if(is_active)
                 draw_obj->draw(target, states, this);
         }
-        void set_draw(sh_p<common_draw> obj)
+        template <typename Type>
+        void set_draw()
         {
-            draw_obj = std::move(obj);
+            draw_obj = sh_p<common_draw>(new Type());
         }
     };
 

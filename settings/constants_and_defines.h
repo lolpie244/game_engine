@@ -4,6 +4,7 @@
 
 #define sh_p std::shared_ptr
 
+using event_function_type = std::function<bool(sf::Event)>;
 namespace constants
 {
     double inf = std::numeric_limits<double>::infinity();

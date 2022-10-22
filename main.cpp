@@ -11,9 +11,14 @@ int main()
     std::map<std::string, sh_p<info::parent>> main_info;
     main_info["render"] = shared_ptr<info::render>(new info::render(window));
     auto events = &info::get_info<info::render>(main_info, "render")->event_manager;
-    events->bind_event(Event::Closed, [&window](Event event){window->close(); return false;});
-    events->bind_event(Event::Resized, [&window](Event event){
+    events->bind(Event::Closed, [&window](Event event) {
+        window->close();
+        return false;
+    });
+    events->bind(Event::Resized, [&window](Event event) {
         sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-        window->setView(sf::View(visibleArea)); return false;});
+        window->setView(sf::View(visibleArea));
+        return false;
+    });
     (new main_menu_np::main_menu(main_info))->main();
 }

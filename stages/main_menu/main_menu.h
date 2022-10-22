@@ -13,8 +13,12 @@ namespace main_menu_np
     protected:
         void init_gui_objects() override
         {
-            background = objects::gui::gui_object({{0, 0}, {1920, 0}, {1920, 1080}, {0, 1080}},{{960, 540}}, pre_loaded::background.get());
-            elements.push_back(&background);
+            background = objects::gui::gui_object({960, 540}, {1920, 1080}, textures::background);
+
+            start_button = objects::gui::button({960, 540, 1}, {200, 200}, textures::test_button);
+
+
+            elements.insert({&start_button, &background});
 
         }
         void init_event_objects() override;
@@ -27,7 +31,9 @@ namespace main_menu_np
         }
 
     public:
+        objects::gui::button start_button;
         objects::gui::gui_object background;
+        vector<sh_p<objects::figures::figure_object>> points;
         main_menu(map<string, sh_p<info::parent>>& main_info):
                 parent_stage(main_info){}
     };

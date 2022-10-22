@@ -4,14 +4,16 @@
 
 namespace gui
 {
-//    class slider: gui_object
-//    {
-//        double min_value = 0;
-//        double max_value = 1;
-//        double step = 0.01;
-//        double current_value = 0;
-//
-//        gui_object(initializer_list<Point> points, Point position, sh_p<Texture>& new_texture):
-//            object(points, position, new_texture){}
-//    };
+    class slider: gui_object
+    {
+        sh_p<Texture> picker_texture;
+    public:
+        double min_value = 0;
+        double max_value = 1;
+        double step = 0.01;
+        double current_value = 0;
+
+        slider(Point position, Point size, sh_p<texture::slider> new_texture):
+            gui_object(position, size, new_texture->get_slider()){}
+    };
 }
