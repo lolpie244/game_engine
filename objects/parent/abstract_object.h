@@ -4,9 +4,9 @@
 
 namespace objects::parent
 {
-    int current_max_id = 0;
     class abstract_object
     {
+        static int current_max_id;
         int id = current_max_id++;
     public:
         int get_id() const
@@ -25,4 +25,5 @@ namespace objects::parent
             return id > other.get_id();
         }
     };
+    int abstract_object::current_max_id = 0;
 }
