@@ -15,9 +15,9 @@ namespace mixins
     protected:
         event_function_type after_scale;
     public:
-        void set_after_scale(event_function_type new_after_scale)
+        void set_after_scale(const event_function_type&  new_after_scale)
         {
-            after_scale = new_after_scale;
+            this->after_scale = new_after_scale;
         }
         virtual void scale(Window& window) {}
     };
@@ -68,7 +68,6 @@ namespace mixins
         {
             set_scale<Type>();
             bind_scale(window, observer);
-            this->after_scale = after_scale;
         }
     };
 
@@ -87,7 +86,7 @@ namespace mixins
         virtual void scale(Window &window, ScalableComposite* obj) {}
     };
 
-    class ScalableComposite: virtual public composite_object, public BaseScalable
+    class ScalableComposite: public BaseScalable, virtual public composite_object
     {
         sh_p<none_scale_composite> scale_obj = sh_p<none_scale_composite>(new none_scale_composite());
     public:
@@ -97,13 +96,12 @@ namespace mixins
         {
             scale_obj->scale(window, this);
         }
-        int bind_scale(sh_p<sf::RenderWindow> window, observer_list& observer)
+        virtual int bind_scale(sh_p<sf::RenderWindow> window, observer_list& observer)
         {
             scale(*window);
             return observer.bind(sf::Event::Resized, [this, window](sf::Event event) {
                 this->scale(*window);
-                if(after_scale)
-                    this->after_scale(event);
+                this->after_scale(event);
                 return false;
             }, this);
         }

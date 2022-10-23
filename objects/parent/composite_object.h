@@ -7,6 +7,7 @@ namespace objects::parent
     class composite_object: public abstract_object
     {
     public:
+        composite_object()=default;
         virtual list<object*> get_objects(){}
 
         template<typename T>
@@ -21,7 +22,7 @@ namespace objects::parent
             }
             return result;
         }
-
+        virtual ~composite_object()=default;
 
     };
 }

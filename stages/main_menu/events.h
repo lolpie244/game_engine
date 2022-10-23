@@ -8,22 +8,23 @@ namespace main_menu_np
 {
     using namespace std;
     using namespace sf;
-    using helping_function::Point, helping_function::get_scaled_mouse_position, helping_function::get_mouse_position;
+    using helping_function::Point, helping_function::get_scaled_mouse_position, helping_function::get_mouse_position,
+            helping_function::get_min_scaled_mouse_position;
 
     bool construct_convex_press(sf::Event event, main_menu* screen_stage)
     {
-        Point mouse = get_scaled_mouse_position(*screen_stage->window);
+        Point mouse = get_min_scaled_mouse_position(*screen_stage->window);
         sh_p<objects::figures::figure_object> point(
                 new objects::figures::figure_object({mouse.x, mouse.y, 1.1}, {100, 100}, textures::dot));
 
         screen_stage->points.push_back(point);
 
-        point->set_scale<objects::mixins::full_scale_2d>();
+        point->set_scale<objects::mixins::relative_position_scale>();
 
         screen_stage->elements.push_back(point.get());
-        if(screen_stage->points.size() == 3)
+        if(screen_stage->points.size() >= 3)
         {
-            screen_stage->elements.remove_object(screen_stage->points[0].get());
+            screen_stage->elements.remove_object(screen_stage->points[screen_stage->points.size() - 3].get());
             screen_stage->points.erase(screen_stage->points.begin());
         }
         return true;
@@ -31,8 +32,8 @@ namespace main_menu_np
 
     void main_menu::init_event_objects()
     {
-        start_button.bind_scale<objects::mixins::full_scale_2d>(window, elements.event_manager);
-        slider.bind_scale<objects::mixins::full_scale_2d, objects::mixins::coord_scale_2d_composite>(window, elements.event_manager);
+        start_button.bind_scale<objects::mixins::relative_position_scale>(window, elements.event_manager);
+        slider.bind_scale<objects::mixins::relative_position_scale, objects::mixins::with_picture_scale>(window, elements.event_manager);
 
 
         start_button.bind_press([](sf::Event event){return true;}, elements.event_manager);

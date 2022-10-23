@@ -35,7 +35,7 @@ namespace info
             {
                 if(first->get_position().z != second->get_position().z)
                     return first->get_position().z < second->get_position().z;
-                return first < second;
+                return *first < *second;
             }
         };
 
@@ -58,14 +58,15 @@ namespace info
 
         void push_back(objects::parent::object* obj)
         {
-            auto draw_casted = dynamic_cast<Drawable*>(obj);
-
-            if(draw_casted)
-                objects.insert(draw_casted);
-
             auto scale_casted = dynamic_cast<Scalable*>(obj);
             if(scale_casted)
                 scale_casted->bind_scale(window, event_manager);
+
+            auto draw_casted = dynamic_cast<Drawable*>(obj);
+            if(draw_casted)
+                objects.insert(draw_casted);
+
+
         }
         void insert(initializer_list<objects::parent::object*> obj)
         {

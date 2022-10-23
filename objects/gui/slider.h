@@ -8,7 +8,7 @@ namespace gui
     using objects::parent::composite_object;
     using helping_function::Point;
 
-    class Slider: public composite_object, public ScalableComposite
+    class Slider: public ScalableComposite, virtual public composite_object
     {
 
         class Base : public object_constructor, public Drawable, public Scalable, public Clickable
@@ -62,6 +62,7 @@ namespace gui
                 update_value();
             }
         }
+
     public:
         Base slider;
         Picker picker;
@@ -93,7 +94,6 @@ namespace gui
         }
         Slider(Point position, Point slider_size, sh_p<texture::slider> new_texture)
         {
-            Slider();
 
             picker_texture = new_texture;
             slider = Base(position, slider_size, new_texture->get_slider());
@@ -122,7 +122,9 @@ namespace gui
                     lam(picker_texture->get_picker_segment().first), lam(picker_texture->get_picker_segment().second)
             };
             update_picker_cord();
+
         }
+
         void bind_slider(event_function_type function, observer_list& observer)
         {
             picker.bind_drag([this, function](sf::Event event){
@@ -136,6 +138,10 @@ namespace gui
                 function(event);
                 return true;
                 }, observer);
+            set_after_scale([this](sf::Event event){
+                this->update_picker_cord();
+                return false;
+            });
         }
     };
 }

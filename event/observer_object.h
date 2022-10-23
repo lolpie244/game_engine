@@ -38,7 +38,6 @@ namespace events
                 auto first = dynamic_cast<object*>(first_abstract->obj);
                 auto second = dynamic_cast<object*>(second_abstract->obj);
 
-
                 if(second == nullptr && first == nullptr)
                     return first_abstract.get() < second_abstract.get();
                 if(second == nullptr)
@@ -48,12 +47,12 @@ namespace events
 
                 if(first->get_position().z != second->get_position().z)
                     return first->get_position().z > second->get_position().z;
-                return first_abstract.get() < second_abstract.get();
+                return *first_abstract->obj > *second_abstract->obj;
             }};
 
         public:
             int last_event_id = 0;
-            unordered_map<abstract_object*, int> event_id_by_object;
+            unordered_map<int, int> event_id_by_object;
             map<int, sh_p<func_struct>> event_by_id;
             set<sh_p<func_struct>, DepthCompare> events_set;
 
@@ -61,7 +60,7 @@ namespace events
             {
                 int event_id = last_event_id++;
                 if(obj != nullptr)
-                    event_id_by_object[obj] = event_id;
+                    event_id_by_object[obj->get_id()] = event_id;
                 event_by_id[event_id] = sh_p<func_struct>(new func_struct(new_func, obj));
                 events_set.insert(event_by_id[event_id]);
                 return event_id;
@@ -73,11 +72,11 @@ namespace events
             }
             void unbind(abstract_object* obj)
             {
-                if(!event_id_by_object.contains(obj))
+                if(!event_id_by_object.contains(obj->get_id()))
                     return;
 
-                unbind(event_id_by_object[obj]);
-                event_id_by_object.erase(obj);
+                unbind(event_id_by_object[obj->get_id()]);
+                event_id_by_object.erase(obj->get_id());
             }
             void notify(sf::Event sfml_event)
             {
