@@ -1,14 +1,20 @@
-#include <utility>
-
 //
 // Created by lolpie on 11/19/21.
 //
+#pragma once
+#include <utility>
+#include "../parent_stage_class.h"
+#include "../../info_classes/info.h"
+#include "../../objects/includes.h"
+#include "../../settings/texture.h"
+#include "textures.h"
+
 namespace main_menu_np
 {
     using namespace std;
     using namespace sf;
     using namespace parent_stage_class;
-
+	using objects::parent::abstract_object;
     using helping_function::Point;
 
     class test_figure: public objects::gui::gui_object, public objects::mixins::Draggable
@@ -31,8 +37,7 @@ namespace main_menu_np
 
             slider = objects::gui::Slider({350, 300, 2}, {688, 78}, textures::test_slider);
 
-            elements.insert(slider.get_objects());
-            elements.insert({&start_button, &background, &drag_test});
+            elements.insert({&start_button, &background, &drag_test, &slider});
         }
         void init_event_objects() override;
         void init_game_objects() override
@@ -48,6 +53,8 @@ namespace main_menu_np
         objects::gui::gui_object background;
         test_figure drag_test;
         objects::gui::Slider slider;
+		objects::figures::bezier bezier;
+
         vector<sh_p<objects::figures::figure_object>> points;
         main_menu(map<string, sh_p<info::parent>>& main_info):
                 parent_stage(main_info){}

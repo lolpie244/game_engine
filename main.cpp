@@ -1,4 +1,3 @@
-#include "settings/library.h"
 #include "settings/project_files.h"
 using namespace sf;
 using namespace std;

@@ -1,10 +1,13 @@
 //
 // Created by lolpie on 10/21/22.
 //
+#pragma once
+#include "class.h"
 
-namespace mixins
+
+namespace objects{ namespace mixins
 {
-
+	using std::min;
     class relative_position_scale : virtual public none_scale
     {
     public:
@@ -66,10 +69,10 @@ namespace mixins
             old_scale = size;
         }
     };
-    class with_picture_scale : virtual public none_scale_composite
+    class composite_relative_scale : virtual public none_scale_composite
     {
     public:
-        void scale(Window& window, ScalableComposite* obj) override
+        void scale(Window& window, CompositeScalable* obj) override
         {
             auto size = get_window_scale(window);
             double min_ = min(size.x, size.y);
@@ -83,4 +86,4 @@ namespace mixins
             old_scale = size;
         }
     };
-}
+}}

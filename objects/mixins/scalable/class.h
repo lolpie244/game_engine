@@ -1,20 +1,27 @@
 //
 // Created by lolpie on 10/20/22.
 //
+#pragma once
+#include <SFML/Window.hpp>
+#include "../../../helping/includes.h"
+#include "../../../helping/structs.h"
+#include "../../../event/observer_object.h"
 
-namespace mixins
+
+namespace objects{ namespace mixins
 {
     using sf::Window;
-    using helping_function::get_window_scale, helping_function::Point;
-    using std::min, std::max, std::list;
+    using helping_function::get_window_scale, structs::Point;
+    using std::list;
     using events::observer_list;
-    using objects::parent::object, objects::parent::composite_object;
+    using parent::object, parent::composite_object;
 
-    class BaseScalable
+    class BaseScalable: virtual public objects::parent::abstract_object
     {
     protected:
         event_function_type after_scale;
     public:
+		virtual int bind_scale(sh_p<sf::RenderWindow> window, observer_list& observer){}
         void set_after_scale(const event_function_type&  new_after_scale)
         {
             this->after_scale = new_after_scale;
@@ -53,7 +60,7 @@ namespace mixins
         {
             scale_obj->scale(window, this);
         }
-        int bind_scale(sh_p<sf::RenderWindow> window, observer_list& observer)
+        int bind_scale(sh_p<sf::RenderWindow> window, observer_list& observer) override
         {
             scale(*window);
             return observer.bind(sf::Event::Resized, [this, window](sf::Event event) {
@@ -71,7 +78,7 @@ namespace mixins
         }
     };
 
-    class ScalableComposite;
+    class CompositeScalable;
 
     class none_scale_composite
     {
@@ -83,20 +90,20 @@ namespace mixins
             old_scale = {1, 1, 1};
         }
 
-        virtual void scale(Window &window, ScalableComposite* obj) {}
+        virtual void scale(Window &window, CompositeScalable* obj) {}
     };
 
-    class ScalableComposite: public BaseScalable, virtual public composite_object
+    class CompositeScalable: public BaseScalable, virtual public composite_object
     {
         sh_p<none_scale_composite> scale_obj = sh_p<none_scale_composite>(new none_scale_composite());
     public:
         virtual list<Point*> get_points_to_scale(){}
 
-        virtual void scale(Window& window)
+        virtual void scale(Window& window) override
         {
             scale_obj->scale(window, this);
         }
-        virtual int bind_scale(sh_p<sf::RenderWindow> window, observer_list& observer)
+        virtual int bind_scale(sh_p<sf::RenderWindow> window, observer_list& observer) override
         {
             scale(*window);
             return observer.bind(sf::Event::Resized, [this, window](sf::Event event) {
@@ -114,4 +121,4 @@ namespace mixins
             bind_scale(window, observer);
         }
     };
-}
+}}

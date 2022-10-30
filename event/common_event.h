@@ -1,8 +1,10 @@
-#include <utility>
-
 //
 // Created by lolpie on 11/25/21.
 //
+#pragma once
+#include <utility>
+#include "../objects/parent/includes.h"
+#include "observer_object.h"
 
 namespace events
 {

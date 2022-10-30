@@ -1,8 +1,11 @@
 //
 // Created by lolpie on 10/20/22.
 //
+#pragma once
+#include "../../event/observer_object.h"
+#include "gui_object.h"
 
-namespace gui
+namespace objects{ namespace gui
 {
     using events::observer_list;
     class button : public gui_object
@@ -43,4 +46,4 @@ namespace gui
         }
 
     };
-}
+}}

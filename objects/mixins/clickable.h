@@ -1,13 +1,17 @@
 //
 // Created by lolpie on 10/20/22.
 //
+#pragma once
+#include "SFML/Main.hpp"
+#include "../../helping/structs.h"
+#include "../../helping/perfect_collision.h"
+#include "../../settings/constants_and_defines.h"
+#include "../../event/observer_object.h"
+#include "../parent/includes.h"
 
-namespace mixins
+namespace objects::mixins
 {
-    using sf::Vector2, sf::Sprite;
-    using helping_function::Point;
-    using std::function;
-    using events::observer_list;
+    using sf::Sprite, structs::Point, events::observer_list, parent::object;
 
 
     class Clickable: virtual public object
@@ -44,6 +48,7 @@ namespace mixins
             some_sprite.setPosition(cords.x, cords.y);
             sf::Image some_img = texture::pixel.get_texture()->copyToImage();
             return helping_function::PixelPerfectCollision(this->sprite, some_sprite, self_img, some_img);
+
         }
         virtual int bind_press(event_function_type function, observer_list& observer)
         {

@@ -1,6 +1,10 @@
 //
 // Created by lolpie on 7/16/22.
 //
+#pragma once
+#include <SFML/System/Vector2.hpp>
+#include <initializer_list>
+#include <SFML/Graphics.hpp>
 
 namespace structs
 {
@@ -76,6 +80,10 @@ namespace structs
         {
             return Point(x * other_cord.first, y * other_cord.second);
         }
+		operator sf::Vector2<float>()
+		{
+			return sf::Vector2<float>(x, y);
+		}
         template<typename T_1, typename T_2>
         Point& operator=(std::pair<T_1, T_2> other_point)
         {

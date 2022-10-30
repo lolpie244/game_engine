@@ -1,15 +1,18 @@
-#include <memory>
-#include <utility>
-
 //
 // Created by lolpie on 14.11.21.
 //
+#pragma once
+#include <memory>
+#include <utility>
+#include <SFML/Graphics.hpp>
+#include "../helping/structs.h"
+#include "constants_and_defines.h"
 
 namespace texture
 {
     using namespace std;
     using namespace sf;
-    using helping_function::Point;
+    using structs::Point;
     class common_texture
     {
     protected:

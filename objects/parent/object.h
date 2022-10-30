@@ -1,19 +1,24 @@
 //
 // Created by lolpie on 10/20/22.
 //
+#pragma once
+#include "../../helping/structs.h"
+#include <SFML/Graphics.hpp>
+#include "abstract_object.h"
+#include "../../settings/texture.h"
+#include <unordered_map>
 
-namespace objects::parent
+namespace objects{ namespace parent
 {
     using namespace structs;
     using sf::Texture, sf::Sprite;
-    using std::vector, std::initializer_list, std::min, std::max, std::unordered_map;
+    using std::vector;
 
-    class object: public abstract_object
+    class object: virtual public abstract_object
     {
     protected:
         Sprite sprite;
         sh_p<texture::common_texture> texture;
-        structs::Point position;
         structs::Point size;
     public:
 
@@ -116,4 +121,4 @@ namespace objects::parent
             set_position(position);
         }
     };
-}
+}}

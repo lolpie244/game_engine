@@ -1,4 +1,4 @@
-
+#pragma once
 namespace parent_stage_class
 {
     class parent_stage;

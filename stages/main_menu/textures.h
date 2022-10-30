@@ -1,12 +1,14 @@
 //
 // Created by lolpie on 10/22/22.
 //
-
+#pragma once
+#include "../../settings/texture.h"
+#include "../../helping/structs.h"
 namespace main_menu_np::textures
 {
     using namespace texture;
     using std::make_shared;
-    using helping_function::Point;
+    using structs::Point;
 
     auto background = make_shared<common_texture>("textures/background.jpg");
     auto dot = make_shared<common_texture>("textures/dot.png");

@@ -1,20 +1,28 @@
 //
 // Created by lolpie on 10/21/22.
 //
+#pragma once
+#include "../mixins/includes.h"
+#include "../../helping/structs.h"
+#include "../parent/includes.h"
+#include "../mixins/includes.h"
+#include "../../event/observer_object.h"
+// #include <SFML/Graphics/Drawable.hpp>
 
-namespace gui
+namespace objects{ namespace gui
 {
-    using objects::mixins::Draggable, objects::mixins::ScalableComposite;
-    using objects::parent::composite_object;
-    using helping_function::Point;
+    using mixins::Draggable, mixins::CompositeScalable;
+    using parent::composite_object, parent::object_constructor;
+	using mixins::Drawable, mixins::Drawable1, mixins::Scalable, mixins::Clickable;
+    using structs::Point;
 
-    class Slider: public ScalableComposite, virtual public composite_object
+    class Slider: public CompositeScalable, public Drawable
     {
 
         class Base : public object_constructor, public Drawable, public Scalable, public Clickable
         {
         public:
-            Base() = default;
+            Base()= default;
 
             Base(Point position, Point size, sh_p<texture::common_texture> new_texture) :
                     object_constructor(position, size, new_texture) {}
@@ -23,7 +31,7 @@ namespace gui
         class Picker : public object_constructor, public Drawable, public Scalable, public Draggable
         {
         public:
-            Picker() = default;
+            Picker()= default;
 
             Picker(Point position, Point size, sh_p<texture::common_texture> new_texture) :
                     object_constructor(position, size, new_texture) {
@@ -125,7 +133,7 @@ namespace gui
 
         }
 
-        void bind_slider(event_function_type function, observer_list& observer)
+        void bind_slider(event_function_type function, events::observer_list& observer)
         {
             picker.bind_drag([this, function](sf::Event event){
                 update_value_by_cord(this->picker.get_position() + Point(this->picker.get_moved_to().x, 0));
@@ -144,4 +152,4 @@ namespace gui
             });
         }
     };
-}
+}}

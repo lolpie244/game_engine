@@ -1,7 +1,9 @@
 //
 // Created by lolpie on 25.06.22.
 //
-
+#pragma once
+#include <SFML/Graphics.hpp>
+#include "../info_classes/info.h"
 namespace parent_stage_class
 {
     using namespace std;

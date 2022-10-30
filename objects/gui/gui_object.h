@@ -1,15 +1,17 @@
 //
 // Created by lolpie on 11/19/21.
 //
-
-namespace gui
+#pragma once
+#include "../mixins/includes.h"
+#include "../../helping/structs.h"
+namespace objects{ namespace gui
 {
-    using mixins::Clickable, mixins::Scalable, mixins::Drawable;
-    using sf::Texture, std::initializer_list, helping_function::Point;
-    using parent::object, parent::object_constructor;
+    using mixins::Clickable, mixins::Scalable, mixins::Drawable1;
+    using structs::Point;
+    using parent::object_constructor;
     using texture::common_texture;
 
-    class gui_object: public object_constructor, public Clickable, public Scalable, public Drawable
+    class gui_object: public object_constructor, public Clickable, public Scalable, public Drawable1
     {
     public:
         gui_object() = default;
@@ -19,5 +21,4 @@ namespace gui
                 object_constructor(position, size, new_texture){}
 
     };
-
-}
+}}

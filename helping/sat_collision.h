@@ -1,6 +1,13 @@
 //
 // Created by lolpie on 26.06.22.
 //
+#pragma once
+#include <unordered_set>
+#include <utility>
+#include "sat_math.h"
+#include "structs.h"
+#include "../settings/constants_and_defines.h"
+
 
 namespace helping_function
 {
@@ -8,8 +15,8 @@ namespace helping_function
     using namespace structs;
     pair<double, double> get_max_segment(vector<Point>& figure, double k, double c)
     {
-        double mx = min_d;
-        double mn = max_d;
+        double mx = constants::min_d;
+        double mn = constants::max_d;
         for(int i = 0; i < figure.size(); i++)
         {
             auto projection_cords = point_projection(figure[i], k, c);

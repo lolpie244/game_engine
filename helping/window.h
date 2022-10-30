@@ -1,10 +1,14 @@
 //
 // Created by lolpie on 11/23/21.
 //
+#pragma once
+#include <SFML/Graphics.hpp>
+#include "structs.h"
 
 namespace helping_function
 {
     using namespace std;
+	using structs::Point;
 
     Point get_window_scale(sf::Window &window)
     {

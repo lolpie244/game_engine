@@ -1,6 +1,10 @@
 //
 // Created by lolpie on 26.06.22.
 //
+#pragma once
+#include <functional>
+#include <SFML/Graphics.hpp>
+#include <limits>
 
 #define sh_p std::shared_ptr
 

@@ -1,10 +1,17 @@
 //
 // Created by lolpie on 10/22/22.
 //
+#pragma once
+#include <SFML/Window.hpp>
+#include <SFML/Window/Event.hpp>
+#include "../parent/includes.h"
+#include "../../helping/structs.h"
+#include "../../event/observer_object.h"
+#include "clickable.h"
 
-namespace mixins
+namespace objects::mixins
 {
-    using parent::object;
+    using parent::object, structs::Point, events::observer_list;
 
     class Draggable: virtual public object, public Clickable
     {

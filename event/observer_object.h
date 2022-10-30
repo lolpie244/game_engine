@@ -1,8 +1,11 @@
-#include <utility>
-
 //
 // Created by lolpie on 11/25/21.
 //
+#pragma once
+#include <utility>
+#include <set>
+#include "../objects/parent/includes.h"
+#include "../settings/constants_and_defines.h"
 
 namespace events
 {

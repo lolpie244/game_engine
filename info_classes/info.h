@@ -1,12 +1,15 @@
 //
 // Created by lolpie on 11/19/21.
 //
-
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <chrono>
+#include "../objects/mixins/includes.h"
 namespace info
 {
     using namespace sf;
     using namespace std;
-    using objects::mixins::Drawable, objects::mixins::Scalable;
+    using objects::mixins::BaseDrawable, objects::mixins::BaseScalable;
 
     template <typename T, typename Map, typename Field>
     sh_p<T> get_info(Map& container, const Field& field)
@@ -31,7 +34,7 @@ namespace info
     {
         struct DepthCompare
         {
-            bool operator()(const objects::parent::object* first, const objects::parent::object* second) const
+            bool operator()(const objects::parent::abstract_object* first, const objects::parent::abstract_object* second) const
             {
                 if(first->get_position().z != second->get_position().z)
                     return first->get_position().z < second->get_position().z;
@@ -41,7 +44,7 @@ namespace info
 
 
         sh_p<RenderWindow> window;
-        set<Drawable*, DepthCompare> objects;
+        set<BaseDrawable*, DepthCompare> objects_to_draw;
     public:
 
         stage_elements(sh_p<RenderWindow> window)
@@ -52,49 +55,37 @@ namespace info
         events::observer_list event_manager;
         void draw()
         {
-            for(auto obj: objects)
+            for(auto obj: objects_to_draw)
                 window->draw(*obj);
         }
 
-        void push_back(objects::parent::object* obj)
+        void push_back(objects::parent::abstract_object* obj)
         {
-            auto scale_casted = dynamic_cast<Scalable*>(obj);
+            auto scale_casted = dynamic_cast<BaseScalable*>(obj);
             if(scale_casted)
                 scale_casted->bind_scale(window, event_manager);
 
-            auto draw_casted = dynamic_cast<Drawable*>(obj);
+            auto draw_casted = dynamic_cast<BaseDrawable*>(obj);
             if(draw_casted)
-                objects.insert(draw_casted);
-
-
+                objects_to_draw.insert(draw_casted);
         }
-        void insert(initializer_list<objects::parent::object*> obj)
+        void insert(initializer_list<objects::parent::abstract_object*> obj)
         {
-            list<objects::parent::object*> obj_list = obj;
+            list<objects::parent::abstract_object*> obj_list = obj;
             insert(obj_list);
         }
-        void insert(list<objects::parent::object*> obj)
+        void insert(list<objects::parent::abstract_object*> obj)
         {
             for(auto to_add: obj)
-            {
-                auto draw_casted = dynamic_cast<Drawable*>(to_add);
-                if (draw_casted)
-                    objects.insert(draw_casted);
-            }
-            for(auto i : obj)
-            {
-                auto scale_casted = dynamic_cast<Scalable*>(i);
-                if(scale_casted)
-                    scale_casted->bind_scale(window, event_manager);
-            }
+            	this->push_back(to_add);
         }
-        void remove_object(objects::parent::object* obj)
+        void remove_object(objects::parent::abstract_object* obj)
         {
             event_manager.unbind_all(obj);
 
-            auto to_erase = dynamic_cast<Drawable*>(obj);
+            auto to_erase = dynamic_cast<BaseDrawable*>(obj);
             if(to_erase)
-                objects.erase(to_erase);
+                objects_to_draw.erase(to_erase);
         }
     };
 }
