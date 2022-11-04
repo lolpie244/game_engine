@@ -28,19 +28,24 @@ namespace texture
                 texture->loadFromFile(path);
             }
         }
+		bool has_texture_flag = false;
     public:
         common_texture()= default;
         explicit common_texture(const string &path, vector<Point> new_points={})
         {
             this->path = path;
+			has_texture_flag = true;
             this->points = std::move(new_points);
         }
-
         shared_ptr<Texture>& get_texture()
         {
             load_texture();
             return texture;
         }
+		bool has_texture()
+		{
+			return has_texture_flag;
+		}
         vector<Point> get_points()
         {
             if(points.empty())

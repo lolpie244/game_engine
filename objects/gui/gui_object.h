@@ -6,12 +6,12 @@
 #include "../../helping/structs.h"
 namespace objects{ namespace gui
 {
-    using mixins::Clickable, mixins::Scalable, mixins::Drawable1;
+    using mixins::Clickable, mixins::Scalable, mixins::Drawable;
     using structs::Point;
     using parent::object_constructor;
     using texture::common_texture;
 
-    class gui_object: public object_constructor, public Clickable, public Scalable, public Drawable1
+    class gui_object: public object_constructor, public Clickable, public Scalable, public Drawable
     {
     public:
         gui_object() = default;

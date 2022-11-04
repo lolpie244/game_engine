@@ -23,7 +23,6 @@
 #include "../info_classes/info.h"
 #include "../stages/parent_stage_class.h"
 
-#include "../stages/main_menu/textures.h"
-#include "../stages/main_menu/main_menu.h"
-#include "../stages/main_menu/events.h"
+#include "../stages/draw_bezier/stage.h"
+#include "../stages/detail_bezier/stage.h"
 

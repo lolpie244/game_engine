@@ -50,7 +50,7 @@ namespace objects{ namespace parent
             this->sprite.setTexture(*texture->get_texture(), resize);
 
             if(resize)
-                set_size(old_texture_size - new_texture_size + size);
+                set_size(size / old_texture_size * new_texture_size);
         }
         void move(Point move_to)
         {
@@ -90,7 +90,7 @@ namespace objects{ namespace parent
         {
             return position - size / 2;
         }
-        void set_position(Point new_point)
+        virtual void set_position(Point new_point)
         {
             position = new_point;
             this->sprite.setPosition(position.x, position.y);

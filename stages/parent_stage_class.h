@@ -3,6 +3,7 @@
 //
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <cstdlib>
 #include "../info_classes/info.h"
 namespace parent_stage_class
 {
@@ -17,10 +18,12 @@ namespace parent_stage_class
         sh_p<RenderWindow> window;
         sh_p<info::render> render;
         map<string, sh_p<info::parent>>* main_info;
+		bool exit = false;
     protected:
         virtual void before_events(){}
         virtual void after_events(){}
         virtual void before_start(){}
+		virtual void after_iteration(){}
         virtual void after_end(){}
         virtual void init_gui_objects(){}
         virtual void init_game_objects(){}
@@ -59,7 +62,10 @@ namespace parent_stage_class
                 after_events();
                 window->clear();
                 elements.draw();
+				after_iteration();
                 window->display();
+				if(exit)
+					break;
             }
             after_end();
         }

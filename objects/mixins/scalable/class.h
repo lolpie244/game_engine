@@ -97,8 +97,6 @@ namespace objects{ namespace mixins
     {
         sh_p<none_scale_composite> scale_obj = sh_p<none_scale_composite>(new none_scale_composite());
     public:
-        virtual list<Point*> get_points_to_scale(){}
-
         virtual void scale(Window& window) override
         {
             scale_obj->scale(window, this);
@@ -108,7 +106,8 @@ namespace objects{ namespace mixins
             scale(*window);
             return observer.bind(sf::Event::Resized, [this, window](sf::Event event) {
                 this->scale(*window);
-                this->after_scale(event);
+				if(after_scale)
+                	this->after_scale(event);
                 return false;
             }, this);
         }

@@ -63,8 +63,12 @@ namespace info
         {
             auto scale_casted = dynamic_cast<BaseScalable*>(obj);
             if(scale_casted)
+			{
                 scale_casted->bind_scale(window, event_manager);
-
+				auto win = window->getSize();
+				window->setSize({win.x + 1, win.y});
+				window->setSize({win.x, win.y});
+			}
             auto draw_casted = dynamic_cast<BaseDrawable*>(obj);
             if(draw_casted)
                 objects_to_draw.insert(draw_casted);

@@ -7,19 +7,17 @@
 #include "../parent/includes.h"
 #include "../mixins/includes.h"
 #include "../../event/observer_object.h"
-// #include <SFML/Graphics/Drawable.hpp>
 
 namespace objects{ namespace gui
 {
     using mixins::Draggable, mixins::CompositeScalable;
     using parent::composite_object, parent::object_constructor;
-	using mixins::Drawable, mixins::Drawable1, mixins::Scalable, mixins::Clickable;
+	using mixins::CompositeDrawable, mixins::Scalable, mixins::Clickable;
     using structs::Point;
 
-    class Slider: public CompositeScalable, public Drawable
+    class Slider: public CompositeScalable, public CompositeDrawable
     {
-
-        class Base : public object_constructor, public Drawable, public Scalable, public Clickable
+        class Base : public object_constructor, public mixins::Drawable, public Scalable, public Clickable
         {
         public:
             Base()= default;
@@ -28,7 +26,7 @@ namespace objects{ namespace gui
                     object_constructor(position, size, new_texture) {}
         };
 
-        class Picker : public object_constructor, public Drawable, public Scalable, public Draggable
+        class Picker : public object_constructor, public mixins::Drawable,  public Scalable, public Draggable
         {
         public:
             Picker()= default;
@@ -79,10 +77,16 @@ namespace objects{ namespace gui
         {
             return {&slider, &picker};
         }
-        std::list<Point*> get_points_to_scale() override
+        std::vector<Point*> get_points() override
         {
             return {&picker_segment_points.first, &picker_segment_points.second};
         }
+		void set_range(std::pair<double, double> range)
+		{
+			min_value = range.first;
+			max_value = range.second;
+			update_value();
+		}
         double get_value()
         {
             return value;
@@ -100,9 +104,9 @@ namespace objects{ namespace gui
                 return false;
             });
         }
-        Slider(Point position, Point slider_size, sh_p<texture::slider> new_texture)
+        Slider(Point position, Point slider_size, sh_p<texture::slider> new_texture, std::pair<double, double> range = {0, 10})
         {
-
+			this->position = position;
             picker_texture = new_texture;
             slider = Base(position, slider_size, new_texture->get_slider());
             picker = Picker(
@@ -115,6 +119,8 @@ namespace objects{ namespace gui
             picker_position.z = slider.get_position().z + 0.1;
 
             picker.set_position(picker_position);
+
+			set_range(range);
         }
         void update_slider_texture(sh_p<texture::slider> new_texture)
         {

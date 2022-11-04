@@ -8,12 +8,15 @@
 #include "../../helping/structs.h"
 #include "../../event/observer_object.h"
 #include "clickable.h"
+#include <iostream>
+#include <chrono>
 
-namespace objects::mixins
+namespace objects{ namespace mixins
 {
+	using namespace std::chrono;
     using parent::object, structs::Point, events::observer_list;
 
-    class Draggable: virtual public object, public Clickable
+    class Draggable: public Clickable
     {
     private:
         Point last_mouse_position;
@@ -27,11 +30,10 @@ namespace objects::mixins
         }
         int bind_press(event_function_type function, observer_list& observer) override
         {
-            event_function_type new_function = [this, function](sf::Event event){
+            Clickable::bind_press([this, function](sf::Event event){
                 this->last_mouse_position = {event.mouseButton.x, event.mouseButton.y};
                 return function(event);
-            };
-            Clickable::bind_press(new_function, observer);
+            }, observer);
         }
         int bind_drag(event_function_type function, observer_list& observer)
         {
@@ -49,9 +51,15 @@ namespace objects::mixins
                 if(!this->is_pressed)
                     return false;
                 return function(event);
-
-            });
+            }, this);
         }
-
     };
-}
+	class DraggableMove: public Draggable
+	{
+	public:
+		int bind_drag(event_function_type function, observer_list& observer)
+		{
+			return Draggable::bind_drag([this, function](sf::Event event){ this->set_position(this->position + this->moved_to); function(event); return true; }, observer);
+		}
+	};
+}}

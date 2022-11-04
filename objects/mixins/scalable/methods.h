@@ -3,6 +3,7 @@
 //
 #pragma once
 #include "class.h"
+#include <iostream>
 
 
 namespace objects{ namespace mixins
@@ -69,6 +70,33 @@ namespace objects{ namespace mixins
             old_scale = size;
         }
     };
+
+    class composite_attach_scale : virtual public none_scale_composite
+    {
+    public:
+        void scale(Window& window, CompositeScalable* obj) override
+        {
+			auto size = get_window_scale(window);
+
+            double min_ = min(size.x, size.y);
+            double old_min = min(old_scale.x, old_scale.y);
+
+            Point position_scale = {size.x / old_scale.x, size.y / old_scale.y};
+			if(min_ / old_min == 1)
+				if(min_ == size.y && old_min == old_scale.y)
+				{
+					std::cout << size.x - old_scale.x <<  '\n';
+					position_scale.x *= old_scale.x / size.x;
+					old_scale = size;
+					return;
+					// position_scale += 
+				}
+            for(Point* point: obj->get_points())
+                *point = *point * position_scale;
+
+            old_scale = size;
+		}
+    };
     class composite_relative_scale : virtual public none_scale_composite
     {
     public:
@@ -80,7 +108,7 @@ namespace objects{ namespace mixins
 
             double position_scale = min_ / old_min;
 
-            for(Point* point: obj->get_points_to_scale())
+            for(Point* point: obj->get_points())
                 *point = *point * position_scale;
 
             old_scale = size;

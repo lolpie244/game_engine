@@ -3,6 +3,7 @@
 //
 
 #include "structs.h"
+#include "helping_math.h"
 #include "sat_math.h"
 #include "sat_collision.h"
 

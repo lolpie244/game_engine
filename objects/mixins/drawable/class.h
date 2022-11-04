@@ -11,8 +11,13 @@ namespace objects{ namespace mixins
 	class BaseDrawable: virtual public sf::Drawable, virtual public parent::abstract_object
 	{
 	public:
+		bool is_display = true;
 		virtual void draw(RenderTarget& target, RenderStates states) const {}
 		virtual ~BaseDrawable()=default;
+		bool is_to_display() const
+		{
+			return is_active && is_display;
+		}
 	};
 
     class ObjectCommonDraw
@@ -24,29 +29,13 @@ namespace objects{ namespace mixins
         }
     };
 
-    class Drawable1: virtual public object, public BaseDrawable
+    class Drawable: virtual public object, virtual public BaseDrawable
 	{
         sh_p<ObjectCommonDraw> draw_obj = sh_p<ObjectCommonDraw>(new ObjectCommonDraw());
     public:
         void draw(RenderTarget& target, RenderStates states) const override
         {
-            if(is_active)
-                draw_obj->draw(target, states, this);
-        }
-        template <typename Type>
-        void set_draw()
-        {
-            draw_obj = sh_p<ObjectCommonDraw>(new Type());
-        }
-    };
-
-    class Drawable: virtual public object, public BaseDrawable
-	{
-        sh_p<ObjectCommonDraw> draw_obj = sh_p<ObjectCommonDraw>(new ObjectCommonDraw());
-    public:
-        void draw(RenderTarget& target, RenderStates states) const override
-        {
-            if(is_active)
+            if(is_to_display())
                 draw_obj->draw(target, states, this);
         }
         template <typename Type>
@@ -73,7 +62,7 @@ namespace objects{ namespace mixins
     public:
         void draw(RenderTarget& target, RenderStates states) const override
         {
-            if(is_active)
+            if(is_to_display())
                 draw_obj->draw(target, states, this);
         }
 		template <typename T_obj, typename T_compos>

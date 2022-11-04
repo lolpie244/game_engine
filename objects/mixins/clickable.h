@@ -8,13 +8,15 @@
 #include "../../settings/constants_and_defines.h"
 #include "../../event/observer_object.h"
 #include "../parent/includes.h"
+#include "hoverable.h"
+#include <SFML/Window/Event.hpp>
 
-namespace objects::mixins
+namespace objects{ namespace mixins
 {
-    using sf::Sprite, structs::Point, events::observer_list, parent::object;
+    using events::observer_list;
 
 
-    class Clickable: virtual public object
+    class Clickable: public Hoverable
     {
     protected:
         event_function_type press_function;
@@ -41,15 +43,11 @@ namespace objects::mixins
         }
         bool is_pressed = false;
     public:
-        bool is_mouse_in(Point cords)
-        {
-            auto self_img = get_texture()->copyToImage();
-            sf::Sprite some_sprite = Sprite(*texture::pixel.get_texture());
-            some_sprite.setPosition(cords.x, cords.y);
-            sf::Image some_img = texture::pixel.get_texture()->copyToImage();
-            return helping_function::PixelPerfectCollision(this->sprite, some_sprite, self_img, some_img);
-
-        }
+		bool with_check_transparency = true;
+		bool get_is_pressed()
+		{
+			return is_pressed;
+		}
         virtual int bind_press(event_function_type function, observer_list& observer)
         {
             press_function = function;
@@ -60,10 +58,12 @@ namespace objects::mixins
         virtual int bind_release(event_function_type function, observer_list& observer)
         {
             release_function = function;
+			if(!press_function)
+				bind_press([](sf::Event event){ return true; }, observer);
             return observer.bind(sf::Event::MouseButtonReleased, [this](sf::Event event) {
                 return this->release(event);
             }, this);
         }
 
     };
-}
+}}

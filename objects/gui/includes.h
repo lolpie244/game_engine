@@ -4,6 +4,7 @@
 
 #include "gui_object.h"
 #include "button.h"
+#include "radio_button.h"
 #include "label.h"
 #include "slider.h"
 

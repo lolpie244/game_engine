@@ -9,6 +9,7 @@ namespace helping_function
 {
     using namespace std;
 	using structs::Point;
+	int framerate = 60;
 
     Point get_window_scale(sf::Window &window)
     {

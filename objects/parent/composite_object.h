@@ -14,30 +14,27 @@ namespace objects { namespace parent
     {
     public:
         composite_object()=default;
-        virtual list<object*> get_objects() const
-		{
-			return {};
-		}
         virtual list<object*> get_objects()
 		{
 			return {};
 		}
-		virtual vector<Point*> get_points() const
+        virtual list<object*> get_const_objects() const
+		{
+			return const_cast<composite_object*>(this)->get_objects();
+		}
+		virtual vector<Point*> get_points()
 		{
 			return {};
+		}
+        virtual vector<Point*> get_points() const
+		{
+			return const_cast<composite_object*>(this)->get_points();
 		}
 
         template<typename T>
         list<T*> get_objects() const
         {
-            list<T*> result;
-            for(auto obj: get_objects())
-            {
-                auto casted = dynamic_cast<T*>(obj);
-                if(casted)
-                    result.push_back(casted);
-            }
-            return result;
+			return const_cast<composite_object*>(this)->get_objects<T>();
         }
 		template<typename T>
         list<T*> get_objects()
