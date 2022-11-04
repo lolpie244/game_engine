@@ -3,6 +3,10 @@
 // source https://gist.github.com/ernestoalejo/3033095
 
 
+#pragma once
+#include <SFML/Graphics.hpp>
+
+
 
 namespace helping_function {
 // Return thea float rect as an int rect.

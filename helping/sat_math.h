@@ -1,6 +1,10 @@
 //
 // Created by lolpie on 26.06.22.
 //
+#pragma once
+#include "../settings/constants_and_defines.h"
+#include "structs.h"
+#include <cmath>
 
 namespace helping_function
 {

@@ -1,12 +1,14 @@
 //
 // Created by lolpie on 25.06.22.
 //
-
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <cstdlib>
+#include "../info_classes/info.h"
 namespace parent_stage_class
 {
     using namespace std;
     using namespace sf;
-    using namespace objects_np;
 
     class parent_stage
     {
@@ -16,10 +18,12 @@ namespace parent_stage_class
         sh_p<RenderWindow> window;
         sh_p<info::render> render;
         map<string, sh_p<info::parent>>* main_info;
+		bool exit = false;
     protected:
         virtual void before_events(){}
         virtual void after_events(){}
         virtual void before_start(){}
+		virtual void after_iteration(){}
         virtual void after_end(){}
         virtual void init_gui_objects(){}
         virtual void init_game_objects(){}
@@ -56,10 +60,12 @@ namespace parent_stage_class
                     elements.event_manager.notify(event);
                 }
                 after_events();
-                elements.move();
                 window->clear();
                 elements.draw();
+				after_iteration();
                 window->display();
+				if(exit)
+					break;
             }
             after_end();
         }
